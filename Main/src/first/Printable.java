@@ -1,7 +1,7 @@
 package first;
 
 public interface Printable {
-    short printSizeX();
-    short printSizeY();
+    int posX=Integer.MAX_VALUE;
+    int posY=Integer.MAX_VALUE;
     String print();
 }

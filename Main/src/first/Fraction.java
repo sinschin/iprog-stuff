@@ -82,15 +82,6 @@ class Fraction extends Number implements Printable {
         return result;
     }
 
-    @Override
-    public short printSizeX() {
-        return 3;
-    }
-
-    @Override
-    public short printSizeY() {
-        return 3;
-    }
 
     @Override
     public String print() {
