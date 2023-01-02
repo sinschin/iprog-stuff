@@ -1,5 +1,7 @@
 package first;
 
+import java.util.Objects;
+
 /**
  * @author Tim Sommer, Thomas Erbes
  * @version 2, 13.12.2022
@@ -54,8 +56,18 @@ class Fraction extends Number {
         return (short) this.doubleValue();
     }
 
-    public boolean equals(Fraction frac) {
-        return this.compareTo(frac) == 0;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fraction fraction = (Fraction) o;
+        return numerator == fraction.numerator && denominator == fraction.denominator;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numerator, denominator);
     }
 
     public int compareTo(Fraction frac) {
