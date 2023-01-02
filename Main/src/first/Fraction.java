@@ -13,12 +13,8 @@ class Fraction extends Number {
         if (denominator == 0) {
             throw new RuntimeException(new IllegalArgumentException("denominator is zero"));
         }
-        if (denominator < 0) {
-            numerator *= -1;
-            denominator *= -1;
-        }
-        this.numerator = numerator;
-        this.denominator = denominator;
+        this.numerator = Math.abs(numerator);
+        this.denominator = Math.abs(denominator);
     }
 
     public Fraction(int numerator) {
