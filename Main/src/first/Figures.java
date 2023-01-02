@@ -16,6 +16,8 @@ public abstract class Figures implements Printable{
         return null;
     }
     //Variablen
-
+    int y,x, points;
     //Methoden
+    //Move
+
 }
