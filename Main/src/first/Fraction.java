@@ -4,6 +4,7 @@ package first;
  * @author Tim Sommer, Thomas Erbes
  * @version 2, 13.12.2022
  **/
+@SuppressWarnings("unused")
 class Fraction extends Number {
     private final int numerator;
     private final int denominator;
