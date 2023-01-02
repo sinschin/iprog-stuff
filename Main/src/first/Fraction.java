@@ -1,14 +1,16 @@
+package first;
+
 /**
 * @version 2, 13.12.2022
 * @author Tim Sommer, Thomas Erbes
 **/
-final class Fraction extends Number {
+class Fraction extends Number {
     private int numerator;
     private int denominator;
 
     public Fraction(int numerator, int denominator) {
         if(denominator == 0) {
-            throw new IllegalArgumentException("denominator is zero");
+            throw new RuntimeException(new IllegalArgumentException("denominator is zero"));
         }
         if(denominator < 0) {
             numerator *= -1;
