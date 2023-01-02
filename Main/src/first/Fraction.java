@@ -1,18 +1,18 @@
 package first;
 
 /**
-* @version 2, 13.12.2022
-* @author Tim Sommer, Thomas Erbes
-**/
+ * @author Tim Sommer, Thomas Erbes
+ * @version 2, 13.12.2022
+ **/
 class Fraction extends Number {
-    private int numerator;
-    private int denominator;
+    private final int numerator;
+    private final int denominator;
 
     public Fraction(int numerator, int denominator) {
-        if(denominator == 0) {
+        if (denominator == 0) {
             throw new RuntimeException(new IllegalArgumentException("denominator is zero"));
         }
-        if(denominator < 0) {
+        if (denominator < 0) {
             numerator *= -1;
             denominator *= -1;
         }
@@ -38,7 +38,7 @@ class Fraction extends Number {
     }
 
     public double doubleValue() {
-        return ((double) numerator)/((double) denominator);
+        return ((double) numerator) / ((double) denominator);
     }
 
     public float floatValue() {
@@ -62,13 +62,12 @@ class Fraction extends Number {
     }
 
     public int compareTo(Fraction frac) {
-        long t = this.getNumerator() * frac.getDenominator();
-        long f = frac.getNumerator() * this.getDenominator();
+        long t = (long) getNumerator() * frac.getDenominator();
+        long f = (long) frac.getNumerator() * getDenominator();
         int result = 0;
-        if(t>f) {
+        if (t > f) {
             result = 1;
-        }
-        else if(f>t) {
+        } else if (f > t) {
             result = -1;
         }
         return result;
