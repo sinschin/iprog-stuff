@@ -7,7 +7,7 @@ import java.util.Objects;
  * @version 2, 13.12.2022
  **/
 @SuppressWarnings("unused")
-class Fraction extends Number {
+class Fraction extends Number implements Printable {
     private final int numerator;
     private final int denominator;
 
@@ -80,5 +80,21 @@ class Fraction extends Number {
             result = -1;
         }
         return result;
+    }
+
+    @Override
+    public short printSizeX() {
+        return 3;
+    }
+
+    @Override
+    public short printSizeY() {
+        return 3;
+    }
+
+    @Override
+    public String print() {
+        String print_line = "000\n---\n111";
+        return print_line.replace("000",numerator+"").replace("111",denominator+"");
     }
 }
