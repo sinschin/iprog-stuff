@@ -1,8 +1,5 @@
 package first;
 
-import org.jetbrains.annotations.NotNull;
-
-import javax.print.attribute.standard.PrinterMakeAndModel;
 import java.util.Random;
 
 public class Pitch {
@@ -13,7 +10,7 @@ public class Pitch {
 
     //Methods
     public Pitch(int size) {
-
+        this.size = size;
         field = new Fraction[size][size];
         generatePitch(size);
     }
