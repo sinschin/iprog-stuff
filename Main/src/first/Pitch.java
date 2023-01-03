@@ -6,7 +6,7 @@ import java.util.Random;
 public class Pitch {
 
     //Variables
-    Fraction[][] field; //represents the playing field
+    static Fraction[][] field; //represents the playing field
     int size; //indicates the size of the playing field
 
     //Methods
@@ -15,7 +15,7 @@ public class Pitch {
         generatePitch(size);
     }
         //GeneratePitch
-    private void generatePitch(int size) {
+    private static void generatePitch(int size) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 field[i][j] = createFraction();
@@ -23,19 +23,22 @@ public class Pitch {
         }
     }
     //creates suitable fractions according to the assignment
-    private Fraction createFraction() {
+    private static Fraction createFraction() {
         int numerator, denominator, gcdivisor;
         Random random = new Random();
 
         //create random number between 10 and 999
         numerator = 10 + random.nextInt(989);
-        denominator = 10 + random.nextInt(989);
+        //with check that numerator is bigger (assignment)
+        do {
+            denominator = 10 + random.nextInt(989);
+        } while (numerator < denominator);
+
 
         //truncate fraction
         gcdivisor = gcd(numerator, denominator);
         numerator = numerator / gcdivisor;
-        denominator = numerator / gcdivisor;
-
+        denominator = denominator / gcdivisor;
         //check that numbers are at least in double digits
         if (numerator < 9 || denominator < 9) {
             return createFraction();
@@ -46,10 +49,9 @@ public class Pitch {
     }
 
     //find the greatest common divisor
-    public int gcd(int a, int b) {
+    public static int gcd(int a, int b) {
         return (b == 0) ? a :gcd(b, a%b);
     }
         //showPitch
         //setPlayers
-
 }
