@@ -59,10 +59,10 @@ public class Pitch {
         return size;
     }
 
-    public static int getNumerator(int numerator, int denominator) {
+    public int getNumerator(int numerator, int denominator) {
         return field[numerator][denominator].getNumerator();
     }
-    public static int getDenominator(int numerator, int denominator) {
+    public int getDenominator(int numerator, int denominator) {
         return field[numerator][denominator].getDenominator();
     }
 
