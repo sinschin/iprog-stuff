@@ -11,6 +11,7 @@ public class Pitch {
 
     //Methods
     public Pitch(int size) {
+
         generatePitch(size);
     }
         //GeneratePitch

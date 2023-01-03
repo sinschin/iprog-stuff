@@ -84,6 +84,16 @@ class Fraction extends Number implements Printable {
 
 
     @Override
+    public short printSizeX() {
+        return 0;
+    }
+
+    @Override
+    public short printSizeY() {
+        return 0;
+    }
+
+    @Override
     public String print() {
         String print_line = "000\n---\n111";
         return print_line.replace("000",numerator+"").replace("111",denominator+"");
