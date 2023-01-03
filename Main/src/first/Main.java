@@ -1,8 +1,5 @@
 package first;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class Main {
     static Pitch GameField;
     public static void main(String[] args) {
@@ -27,14 +24,14 @@ public class Main {
                 if(numerator < 100) { System.out.print(" " + numerator + "  #  ");}
                 else {System.out.print(numerator + "  #  ");}
             }
-            System.out.println("");
+            System.out.println();
 
             //create row with fraction separator
             System.out.print("#   ");
             for (int j = 0; j < GameField.getSize(); j++) {
                 System.out.print("———  #  ");
             }
-            System.out.println("");
+            System.out.println();
 
             //create row with denominator
             System.out.print("#   ");
@@ -43,7 +40,7 @@ public class Main {
                 if(denominator < 100) { System.out.print(" " + denominator + "  #  ");}
                 else {System.out.print(denominator + "  #  ");}
             }
-            System.out.println("");
+            System.out.println();
             System.out.println(fieldSpacer);
         }
     }
