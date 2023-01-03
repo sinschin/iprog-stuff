@@ -83,7 +83,21 @@ class Fraction extends Number implements Printable {
     }
 
     public Fraction addition(Fraction otherFraction) {
-        return new Fraction(numerator + otherFraction.numerator, denominator + otherFraction.denominator);
+        int abNumerator, abDenominator, abGCD;
+
+        //bring to a mutual common denominator
+        abNumerator = numerator * otherFraction.denominator + otherFraction.numerator * denominator;
+        abDenominator = denominator * otherFraction.denominator;
+
+        //shorten
+        abGCD = getGCD(abNumerator, abDenominator);
+        abNumerator = abNumerator / abGCD;
+        abDenominator = abDenominator / abGCD;
+
+        return new Fraction(abNumerator, abDenominator);
+    }
+    private static int getGCD(int a, int b) {
+        return (b == 0) ? a :getGCD(b, a%b);
     }
 
     @Override
