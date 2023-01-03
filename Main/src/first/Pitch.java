@@ -42,7 +42,7 @@ public class Pitch {
         denominator = denominator / gcdivisor;
 
         //check that numbers are at least in double digits
-        if (numerator < 9 || denominator < 9) {
+        if (numerator < 10 || denominator < 10) {
             return createFraction();
         }
         else {
