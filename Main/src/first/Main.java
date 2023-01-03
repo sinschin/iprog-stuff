@@ -12,7 +12,7 @@ public class Main {
     //Needs an option to show W/B and empty fields.
     public static void printField(){
         //String fieldSpacer =      "|-------------------------------------------------|";
-          String fieldSpacer =      "##################################################################";
+        String fieldSpacer =      "##################################################################";
         //String fieldSpacingLine = "|                                                 |";
         //String fieldNormalLine =  "|  000   111   222   333   444   555   666   777  |";
         int numerator, denominator;
