@@ -82,6 +82,9 @@ class Fraction extends Number implements Printable {
         return result;
     }
 
+    public Fraction addition(Fraction a, Fraction b) {
+        return new Fraction(a.numerator + b.numerator, a.denominator + b.denominator);
+    }
 
     @Override
     public short printSizeX() {
