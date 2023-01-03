@@ -1,6 +1,7 @@
 package first;
 
 public abstract class Figures implements Printable{
+
     @Override
     public short printSizeX() {
         return 3;
@@ -16,7 +17,8 @@ public abstract class Figures implements Printable{
         return null;
     }
     //Variablen
-    int y,x, points;
+    static Fraction points; //Points as a fraction, to counter inaccuracy of double and float
+    static int x,y; //Position on the board
     //Methoden
     //Move
 
