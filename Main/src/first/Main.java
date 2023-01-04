@@ -47,10 +47,6 @@ public class Main {
     //Needs an option to show W/B and empty fields.
     public static void printField(){
         turn++;
-        String fieldSpacer = "|-------------------------------------|";
-        String fieldSpacingLine = "|                                     |";
-        String fieldNormalLine = "| 000 111 222 333 444 555 666 777 888 |";
-        String[] groups = new String[8];
 
         int numerator, denominator;
 
@@ -98,7 +94,7 @@ public class Main {
                 String inp_cmd = "";
                 while((inp_cmd = br.readLine()) != null){
                     Figures figure = null;
-                    figure=turn%2==0 ? whiteFigure : blackFigure;
+                    figure=turn%2==0 ? whiteFigure : blackFigure; //fairly simple change to a switch case if u wanted more players
                     switch (inp_cmd){
                         default:return;
                         case "n":figure.move(0,1);return;
