@@ -82,13 +82,16 @@ public class Main {
                 while((inp_cmd = br.readLine()) != null){
                     Figures figure = null;
                     figure=turn%2==0 ? whiteFigure : blackFigure; //fairly simple change to a switch case if u wanted more players
-                    switch (inp_cmd){
-                        default:return;
-                        case "n":figure.move(0,1);break;
-                        case "s":figure.move(0,-1);break;
-                        case "o":figure.move(1,0);break;
-                        case "w":figure.move(-1,0);break;
+                    for (char c : inp_cmd.toCharArray()) {
+                        switch (c){
+                            default:continue; //in case of invalid input
+                            case 'n':figure.move(0,1);break;
+                            case 's':figure.move(0,-1);break;
+                            case 'o':figure.move(1,0);break;
+                            case 'w':figure.move(-1,0);break;
+                        }
                     }
+
                     printField();
                 }
             }catch (Exception e){
