@@ -1,13 +1,29 @@
 package first;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class Main {
     static Pitch GameField;
+    static Thread inputHandler = null;
+    static Figures whiteFigure = null;
+    static Figures blackFigure = null;
+    static int turn = 0;
+
     public static void main(String[] args) {
         GameField = new Pitch(8);
+        startGame();
         printField();
     }
     //Needs an option to show W/B and empty fields.
     public static void printField(){
+        turn++;
+        String fieldSpacer = "|-------------------------------------|";
+        String fieldSpacingLine = "|                                     |";
+        String fieldNormalLine = "| 000 111 222 333 444 555 666 777 888 |";
+        String[] groups = new String[8];
+
         int numerator, denominator;
 
         String fieldSpacerStart  =      "┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐";
@@ -45,5 +61,29 @@ public class Main {
             if (i < GameField.getSize() - 1) { System.out.println(fieldSpacerMiddle);}
             else { System.out.println(fieldSpacerEnd);}
         }
+    }
+    public static void startGame(){
+        if(inputHandler!=null)inputHandler.interrupt();
+        inputHandler = new Thread(()->{
+            try {
+                final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                String inp_cmd = "";
+                while((inp_cmd = br.readLine()) != null){
+                    Figures figure = null;
+                    figure=turn%2==0 ? whiteFigure : blackFigure;
+                    switch (inp_cmd){
+                        default:return;
+                        case "n":figure.move(0,1);return;
+                        case "s":figure.move(0,-1);return;
+                        case "o":figure.move(1,0);return;
+                        case "w":figure.move(-1,0);return;
+                    }
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        },"async inp listner");
+        inputHandler.start();
+
     }
 }

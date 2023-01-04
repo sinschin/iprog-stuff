@@ -8,6 +8,10 @@ public abstract class Figures implements Printable{
     Fraction points; //Points as a fraction, to counter inaccuracy of double and float
     int x,y; //Position on the board
     //Methoden
+
     //Move
+    public void move(int x,int y){
+        //TODO this is just a placeholder
+    }
 
 }
