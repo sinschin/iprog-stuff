@@ -1,12 +1,11 @@
 package first;
 
 public interface Printable {
-    int posX=Integer.MAX_VALUE;
-    int posY=Integer.MAX_VALUE;
-
-    short printSizeX();
-
-    short printSizeY();
+    /*
+unused cus of other print system
+    */
+//    int posX=Integer.MAX_VALUE;
+//    int posY=Integer.MAX_VALUE;
 
     String print();
 }
