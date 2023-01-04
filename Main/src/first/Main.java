@@ -10,12 +10,15 @@ public class Main {
     static Figures whiteFigure = null;
     static Figures blackFigure = null;
     static int turn = 0;
+    public static int size = 8; //size of the playing field, standard 8
 
     public static void main(String[] args) {
-        GameField = new Pitch(8);
+        GameField = new Pitch();
         startGame();
         printField();
     }
+
+    //Shows the playing field
     //Needs an option to show W/B and empty fields.
     public static void printField(){
         turn++;
@@ -32,11 +35,11 @@ public class Main {
 
 
         System.out.println(fieldSpacerStart);
-        for (int i = 0; i < GameField.getSize(); i++) {
+        for (int i = 0; i < size; i++) {
 
             //create row with numerator
             System.out.print("│  ");
-            for (int j = 0; j < GameField.getSize(); j++) {
+            for (int j = 0; j < size; j++) {
                 numerator =  GameField.getNumerator(i,j);
                 if(numerator < 100) { System.out.print(" " + numerator + "  │  ");}
                 else {System.out.print(numerator + "  │  ");}
@@ -45,20 +48,20 @@ public class Main {
 
             //create row with fraction separator
             System.out.print("│  ");
-            for (int j = 0; j < GameField.getSize(); j++) {
+            for (int j = 0; j < size; j++) {
                 System.out.print("———  │  ");
             }
             System.out.println();
 
             //create row with denominator
             System.out.print("│  ");
-            for (int j = 0; j < GameField.getSize(); j++) {
+            for (int j = 0; j < size; j++) {
                 denominator =  GameField.getDenominator(i,j);
                 if(denominator < 100) { System.out.print(" " + denominator + "  │  ");}
                 else {System.out.print(denominator + "  │  ");}
             }
             System.out.println();
-            if (i < GameField.getSize() - 1) { System.out.println(fieldSpacerMiddle);}
+            if (i < size - 1) { System.out.println(fieldSpacerMiddle);}
             else { System.out.println(fieldSpacerEnd);}
         }
     }

@@ -2,15 +2,15 @@ package first;
 
 import java.util.Random;
 
+import static first.Main.size;
+
 public class Pitch {
 
     //Variables
     static Fraction[][] field; //represents the playing field
-    int size; //indicates the size of the playing field
 
     //Methods
-    public Pitch(int size) {
-        this.size = size;
+    public Pitch() {
         field = new Fraction[size][size];
         generatePitch(size);
     }
@@ -53,10 +53,6 @@ public class Pitch {
     //find the greatest common divisor
     private static int gcd(int a, int b) {
         return (b == 0) ? a :gcd(b, a%b);
-    }
-
-    public int getSize() {
-        return size;
     }
 
     public int getNumerator(int numerator, int denominator) {
