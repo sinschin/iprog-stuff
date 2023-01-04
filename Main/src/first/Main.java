@@ -3,6 +3,7 @@ package first;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 
 public class Main {
     static Pitch GameField;
@@ -37,41 +38,37 @@ public class Main {
 
         int numerator, denominator;
 
-        String fieldSpacerStart  =      "┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐";
-        String fieldSpacerMiddle =      "├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤";
-        String fieldSpacerEnd    =      "└───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘";
+        final String fieldSpacerStart  =      "┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐";
+        final String fieldSpacerMiddle =      "├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤";
+        final String fieldSpacerEnd    =      "└───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘";
+        final String fieldNormal       =      "│  000  │  111  │  222  │  333  │  444  │  555  │  666  │  777  │";
+        final String fieldNormalSeparator=    "│  ---  │  ---  │  ---  │  ---  │  ---  │  ---  │  ---  │  ---  │";
 
 
         System.out.println(fieldSpacerStart);
         for (int i = 0; i < size; i++) {
-
-            //create row with numerator
-            System.out.print("│  ");
+            String row0 = fieldNormal;
+            String row1 = fieldNormalSeparator;
+            String row2 = fieldNormal;
+//            DecimalFormat decimalFormat = new DecimalFormat("###");
+            //replaces the row with the numerators
             for (int j = 0; j < size; j++) {
                 numerator =  GameField.getNumerator(i,j);
-                if(numerator < 100) { System.out.print(" " + numerator + "  │  ");}
-                else {System.out.print(numerator + "  │  ");}
+                row0=row0.replace(j+""+j+""+j,String.format("%03d", numerator));
+//                System.out.print(numerator + "  │  ");
             }
-            System.out.println();
 
-            //create row with fraction separator
-            System.out.print("│  ");
-            for (int j = 0; j < size; j++) {
-                System.out.print("———  │  ");
-            }
-            System.out.println();
-
-            //create row with denominator
-            System.out.print("│  ");
+            //replaces the row with the denominators
             for (int j = 0; j < size; j++) {
                 denominator =  GameField.getDenominator(i,j);
-                if(denominator < 100) { System.out.print(" " + denominator + "  │  ");}
-                else {System.out.print(denominator + "  │  ");}
+                row2=row2.replace(j+""+j+""+j,String.format("%03d", denominator));
             }
-            System.out.println();
-            if (i < size - 1) { System.out.println(fieldSpacerMiddle);}
-            else { System.out.println(fieldSpacerEnd);}
+            System.out.println(row0);
+            System.out.println(row1);
+            System.out.println(row2);
+            if (i !=size-1) { System.out.println(fieldSpacerMiddle);}
         }
+        System.out.println(fieldSpacerEnd);
     }
     public static void startGame(){
         if(inputHandler!=null)inputHandler.interrupt();
