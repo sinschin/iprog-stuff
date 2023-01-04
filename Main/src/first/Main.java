@@ -13,7 +13,11 @@ public class Main {
     public static int size = 8; //size of the playing field, standard 8
 
     public static void main(String[] args) {
+        //Start - Aufgaben Regeln
+        //Anlegen Spielfiguren
+        //Anlegen Feld
         GameField = new Pitch();
+        //Ausgabe Feld
         whiteFigure=new Figures() {
             @Override
             public String getName() {
@@ -28,6 +32,15 @@ public class Main {
         };
         startGame();
         printField();
+        //Aufforderung Eingabe
+        //Frage wer anfängt - W oder B
+        //Eingabe W/B
+        //Frage wohin Spieler ziehen möchte (N,O,S,W oder NW(W) oder SW(B)
+        //Eingabe Richtung
+        //bewegt sich, wenn möglich, fehler und wiederholung, wenn nicht möglich
+        //Einsammeln Punkte
+        //Prüfen, ob gewonnen
+        //
     }
 
     //Shows the playing field
@@ -88,12 +101,11 @@ public class Main {
                     figure=turn%2==0 ? whiteFigure : blackFigure;
                     switch (inp_cmd){
                         default:return;
-                        case "n":figure.move(0,1);break;
-                        case "s":figure.move(0,-1);break;
-                        case "o":figure.move(1,0);break;
-                        case "w":figure.move(-1,0);break;
+                        case "n":figure.move(0,1);return;
+                        case "s":figure.move(0,-1);return;
+                        case "o":figure.move(1,0);return;
+                        case "w":figure.move(-1,0);return;
                     }
-                    printField();
                 }
             }catch (Exception e){
                 e.printStackTrace();
