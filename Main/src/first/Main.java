@@ -24,7 +24,7 @@ public class Main {
         blackFigure=new Figures() {
             @Override
             public String getName() {
-                return "W";
+                return "B";
             }
         };
         startGame();
