@@ -100,15 +100,6 @@ class Fraction extends Number implements Printable {
         return (b == 0) ? a :getGCD(b, a%b);
     }
 
-    @Override
-    public short printSizeX() {
-        return 0;
-    }
-
-    @Override
-    public short printSizeY() {
-        return 0;
-    }
 
     @Override
     public String print() {
