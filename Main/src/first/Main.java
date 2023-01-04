@@ -51,14 +51,14 @@ public class Main {
             String row1 = fieldNormalSeparator;
             String row2 = fieldNormal;
 //            DecimalFormat decimalFormat = new DecimalFormat("###");
-            //create row with numerator
+            //replaces the row with the numerators
             for (int j = 0; j < size; j++) {
                 numerator =  GameField.getNumerator(i,j);
                 row0=row0.replace(j+""+j+""+j,String.format("%03d", numerator));
 //                System.out.print(numerator + "  │  ");
             }
 
-            //create row with denominator
+            //replaces the row with the denominators
             for (int j = 0; j < size; j++) {
                 denominator =  GameField.getDenominator(i,j);
                 row2=row2.replace(j+""+j+""+j,String.format("%03d", denominator));
