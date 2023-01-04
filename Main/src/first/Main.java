@@ -88,11 +88,12 @@ public class Main {
                     figure=turn%2==0 ? whiteFigure : blackFigure;
                     switch (inp_cmd){
                         default:return;
-                        case "n":figure.move(0,1);continue;
-                        case "s":figure.move(0,-1);continue;
-                        case "o":figure.move(1,0);continue;
-                        case "w":figure.move(-1,0);continue;
+                        case "n":figure.move(0,1);break;
+                        case "s":figure.move(0,-1);break;
+                        case "o":figure.move(1,0);break;
+                        case "w":figure.move(-1,0);break;
                     }
+                    printField();
                 }
             }catch (Exception e){
                 e.printStackTrace();
