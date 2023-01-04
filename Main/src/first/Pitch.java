@@ -61,8 +61,8 @@ public class Pitch {
     public int getDenominator(int numerator, int denominator) {
         return field[numerator][denominator].getDenominator();
     }
-    public Fraction gainPoints(int x, int y, Fraction points) {
-        points = points.addition(field[x][y]);
+    public Fraction getPoints(int x, int y) {
+        Fraction points = field[x][y];
         field[x][y] = new Fraction(0); //empty field so that it can't be claimed again
         return points;
     }
