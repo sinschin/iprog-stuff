@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  * @author Tim Sommer, Thomas Erbes
- * @version 2, 13.12.2022
+ * @version 3, 3.1.2023
  **/
 @SuppressWarnings("unused")
 class Fraction extends Number implements Printable {
