@@ -32,7 +32,7 @@ public class Main {
     }
 
     //Shows the playing field
-    //Needs an option to show W/B and empty fields.
+    //TODO an option to show W/B and empty fields (currently the would be shown as 0/1).
     public static void printField(){
         turn++;
 
@@ -86,6 +86,7 @@ public class Main {
                             case 's':figure.move(0,-1);break;
                             case 'o':figure.move(1,0);break;
                             case 'w':figure.move(-1,0);break;
+                            //TODO Case for SW and NO
                         }
                     }
 
