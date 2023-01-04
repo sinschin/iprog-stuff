@@ -14,6 +14,18 @@ public class Main {
 
     public static void main(String[] args) {
         GameField = new Pitch();
+        whiteFigure=new Figures() {
+            @Override
+            public String getName() {
+                return "W";
+            }
+        };
+        blackFigure=new Figures() {
+            @Override
+            public String getName() {
+                return "W";
+            }
+        };
         startGame();
         printField();
     }
@@ -76,10 +88,10 @@ public class Main {
                     figure=turn%2==0 ? whiteFigure : blackFigure;
                     switch (inp_cmd){
                         default:return;
-                        case "n":figure.move(0,1);return;
-                        case "s":figure.move(0,-1);return;
-                        case "o":figure.move(1,0);return;
-                        case "w":figure.move(-1,0);return;
+                        case "n":figure.move(0,1);continue;
+                        case "s":figure.move(0,-1);continue;
+                        case "o":figure.move(1,0);continue;
+                        case "w":figure.move(-1,0);continue;
                     }
                 }
             }catch (Exception e){
