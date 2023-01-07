@@ -28,10 +28,10 @@ public class Main {
 
 //        int numerator, denominator;
 
-        final String fieldSpacerStart  =      "┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐";
-        final String fieldSpacerMiddle =      "├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤";
-        final String fieldSpacerEnd    =      "└───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘";
-        final String fieldNormal       =      "│  000  │  111  │  222  │  333  │  444  │  555  │  666  │  777  │";
+        final String fieldSpacerStart  =      "┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐";  //only need to add ┬─────── to increase the size of the playing field
+        final String fieldSpacerMiddle =      "├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤";  //only need to add ┼─────── to increase the size of the playing field
+        final String fieldSpacerEnd    =      "└───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘";  //only need to add ┴─────── to increase the size of the playing field
+        final String fieldNormal       =      "│  000  │  111  │  222  │  333  │  444  │  555  │  666  │  777  │";  //only need to add │  xxx   to increase the size of the playing field
 //        final String fieldNormalSeparator=    "│  ---  │  ---  │  ---  │  ---  │  ---  │  ---  │  ---  │  ---  │";
 
 
@@ -107,6 +107,7 @@ public class Main {
                         }
                     }
                     try {
+                        if(xDelta==0&&yDelta==0)throw new InvalidMoveException("Unknown input");
                         figure.move(clamp(xDelta,-1,1),clamp(yDelta,-1,1));
                         printField();
                         figure=figuresList.get(turn%figuresList.size());
