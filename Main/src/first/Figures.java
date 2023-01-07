@@ -3,11 +3,12 @@ package first;
 import java.util.Random;
 import static first.Main.size;
 
-public abstract class Figures implements Printable{
-    public abstract String getName();
+public class Figures implements Printable{
+
+    public String name;
     @Override
     public String print(){
-        return "   \n "+getName()+" \n   ";
+        return "   \n "+ name +" \n   ";
     }
     //Variablen
     Fraction points; //Points as a fraction, to counter inaccuracy of double and float
@@ -35,4 +36,18 @@ public abstract class Figures implements Printable{
         y += y1;
     }
 
+    public Figures(String name) {
+        this.name = name;
+    }
+    public static Figures genFigure(){
+        try {
+            return new Figures(Main.FigureNames.charAt(figureId++)+"");
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("too many figures");
+        }
+        return null;
+    }
+    //FIXME remove this and search for all figures
+    private static short figureId = 0;
 }

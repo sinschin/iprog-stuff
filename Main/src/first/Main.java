@@ -1,11 +1,10 @@
 package first;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.text.DecimalFormat;
 
 public class Main {
+    static String FigureNames ="WBERDCFGVHBJNMKOLI";
     static Pitch GameField;
     static Thread inputHandler = null;
     static Figures whiteFigure = null;
@@ -15,18 +14,8 @@ public class Main {
 
     public static void main(String[] args) {
         GameField = new Pitch();
-        whiteFigure=new Figures() {
-            @Override
-            public String getName() {
-                return "W";
-            }
-        };
-        blackFigure=new Figures() {
-            @Override
-            public String getName() {
-                return "B";
-            }
-        };
+        whiteFigure=Figures.genFigure();
+        blackFigure=Figures.genFigure();
         startGame();
         printField();
     }
