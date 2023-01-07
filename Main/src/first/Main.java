@@ -67,16 +67,18 @@ public class Main {
                 while((inp_cmd = br.readLine()) != null){
                     Figures figure = null;
                     figure=figuresList.get(turn%figuresList.size());
+                    int xDelta = 0;
+                    int yDelta = 0;
                     for (char c : inp_cmd.toCharArray()) {
                         switch (c){
                             default:continue; //in case of invalid input
-                            case 'n':figure.move(0,1);break;
-                            case 's':figure.move(0,-1);break;
-                            case 'o':figure.move(1,0);break;
-                            case 'w':figure.move(-1,0);break;
+                            case 'n':xDelta=0;yDelta=1;break;
+                            case 's':xDelta=0;yDelta=-1;break;
+                            case 'o':xDelta=1;yDelta=0;break;
+                            case 'w':xDelta=-1;yDelta=0;break;
                         }
                     }
-
+                    figure.move(clamp(xDelta,-1,1),clamp(yDelta,-1,1));
                     printField();
                 }
             }catch (Exception e){
@@ -88,6 +90,9 @@ public class Main {
         },"async inp listner");
         inputHandler.start();
 
+    }
+    public static int clamp(int cValue, int min, int max) {
+        return Math.max(min, Math.min(max, cValue));
     }
     //gives the player the points that the field he is standing on holds
     public void gainPoints(Figures figure) {
