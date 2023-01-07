@@ -26,7 +26,7 @@ public class Pitch {
     private static Fraction createFraction() {
         int numerator, denominator, gcdivisor;
         Random random = new Random();
-
+        //TODO remove this
         //create random number between 10 and 999
         numerator = 10 + random.nextInt(989);
 
