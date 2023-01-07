@@ -3,8 +3,9 @@ package first;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
     static String FigureNames ="WBACDEFGHIJKLMNOPQRSTUVXYZ";
@@ -16,8 +17,9 @@ public class Main {
 
     public static void main(String[] args) {
         GameField = new Pitch();
-        figuresList.add(Figures.genFigure());
-        figuresList.add(Figures.genFigure());
+        for (int i = 0; i < 1; i++) {
+            figuresList.add(Figures.genFigure());
+        }
         startGame();
     }
 
@@ -31,7 +33,7 @@ public class Main {
         final String fieldSpacerStart  =      "┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐";  //only need to add ┬─────── to increase the size of the playing field
         final String fieldSpacerMiddle =      "├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤";  //only need to add ┼─────── to increase the size of the playing field
         final String fieldSpacerEnd    =      "└───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘";  //only need to add ┴─────── to increase the size of the playing field
-        final String fieldNormal       =      "│  000  │  111  │  222  │  333  │  444  │  555  │  666  │  777  │";  //only need to add │  xxx   to increase the size of the playing field
+        final String fieldNormal       =      "│  xxx  │  xxx  │  xxx  │  xxx  │  xxx  │  xxx  │  xxx  │  xxx  │";  //only need to add │  xxx   to increase the size of the playing field
 //        final String fieldNormalSeparator=    "│  ---  │  ---  │  ---  │  ---  │  ---  │  ---  │  ---  │  ---  │";
 
 
@@ -49,10 +51,10 @@ public class Main {
             String row2 = fieldNormal;
             for (int x = 0; x < size; x++) {
                 String[] printOutSplit = allFields.get(new Pos(x,y)).print().split("\n");
-                row0=row0.replace(x+""+x+""+x,printOutSplit[0]);
-                row1=row1.replace(x+""+x+""+x,printOutSplit[1]);
-//                row1=row1.replace(x+""+x+""+x,x+"/"+y); //just here for debugging
-                row2=row2.replace(x+""+x+""+x,printOutSplit[2]);
+                row0=row0.replaceFirst("xxx",printOutSplit[0]);
+                row1=row1.replaceFirst("xxx",printOutSplit[1]);
+//                row2=row2.replaceFirst("xxx",x+"/"+y); //just here for debugging
+                row2=row2.replaceFirst("xxx",printOutSplit[2]);
             }
             System.out.println(row0);
             System.out.println(row1);
@@ -83,6 +85,20 @@ public class Main {
 //        }
         System.out.println(fieldSpacerEnd);
     }
+    private static Boolean nothingLeft(){
+        for (int i = 0; i < Pitch.field.length; i++) {
+            Printable[] allX = Pitch.field[i];
+            for (int i1 = 0; i1 < allX.length; i1++) {
+                Printable allX1 = allX[i1];
+                if(allX1.isFraction()){
+                    if(((Fraction)allX1).isValid()){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
     public static void startGame(){
         if(inputHandler!=null)inputHandler.interrupt();
         inputHandler = new Thread(()->{
@@ -100,17 +116,34 @@ public class Main {
                     for (char c : inp_cmd.toCharArray()) {
                         switch (c){
                             default:continue; //in case of invalid input
-                            case 'n':xDelta+= 0;yDelta+=-1;break;
+//                            case 'n':xDelta+= 0;yDelta+=-1;break;
+//                            case 's':xDelta+= 0;yDelta+= 1;break;
+//                            case 'o':xDelta+= 1;yDelta+= 0;break;
+//                            case 'w':xDelta+=-1;yDelta+= 0;break;
+                            case 'w':xDelta+= 0;yDelta+=-1;break;
                             case 's':xDelta+= 0;yDelta+= 1;break;
-                            case 'o':xDelta+= 1;yDelta+= 0;break;
-                            case 'w':xDelta+=-1;yDelta+= 0;break;
+                            case 'd':xDelta+= 1;yDelta+= 0;break;
+                            case 'a':xDelta+=-1;yDelta+= 0;break;
                         }
                     }
                     try {
                         if(xDelta==0&&yDelta==0)throw new InvalidMoveException("Unknown input");
                         figure.move(clamp(xDelta,-1,1),clamp(yDelta,-1,1));
+                        if(nothingLeft()){
+                            System.out.println("and its over");
+                            ArrayList<Figures> players =figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
+                            for (int i = 0; i < players.size(); i++) {
+                                System.out.println(i+". "+players.get(i).name+" "+players.get(i).points.floatValue());
+                            }
+                            System.exit(2);
+                            break;
+                        }
                         printField();
                         figure=figuresList.get(turn%figuresList.size());
+                        ArrayList<Figures> players =figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
+                        for (int i = 0; i < players.size(); i++) {
+                            System.out.println(i+1+". "+players.get(i).name+" "+players.get(i).points.floatValue());
+                        }
                         System.out.println(figure.name+ "'s turn with "+figure.points.floatValue());
                     }catch (InvalidMoveException ex){
                         System.out.println(ex.getMessage());

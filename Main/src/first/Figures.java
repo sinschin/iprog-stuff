@@ -53,9 +53,25 @@ public class Figures implements Printable{
                 throw new InvalidMoveException("Cant move on another player: ");
             }
         }
+        //seems like according to this addition function x + 0/1 somehow is less than x and not x
+        //so that is why this GREAT fix is here
+        Fraction fieldPoints = Main.GameField.getFieldPoints(x + x1, y + y1);
+        //we can kinda just skip is useless cpu intensive process if its 0 since It's something + 0
+        if(fieldPoints.getNumerator()!=0){
+            try {
+//                float before = points.floatValue();
+//                Fraction bp = points;
+                points= points.addition(fieldPoints);
+//                float after =points.floatValue();
+//                if(before>after){
+//                    System.out.println("we lost points somehow?");
+//                    bp.addition(fieldPoints);
+//                }
+            }catch (ArithmeticException e){
+                System.out.println("well that's it\nFIXME this is broken due to us not being able to count that high (we can count higher but the problem is that the nominator and denominator is too big for an int) with that stupid useless and trash Fraction system \nTODO figure something out we might have to move the whole Fraction to a BigInt\nand that wound be a big blow to performance (like like we even remotely optimised for that)");
+            }
 
-//        Fraction fieldPoints = Main.GameField.getFieldPoints(x + x1, y + y1);
-        points= points.addition(Main.GameField.getFieldPoints(x + x1, y + y1));
+        }
         Main.GameField.field[x][y]=new Fraction(0,1);
         x += x1;
         y += y1;
@@ -65,7 +81,7 @@ public class Figures implements Printable{
         try {
             return new Figures(Main.FigureNames.charAt(figureId++)+"");
         }catch (Exception e){
-            e.printStackTrace();
+//            e.printStackTrace();
             System.out.println("too many figures");
         }
         return null;

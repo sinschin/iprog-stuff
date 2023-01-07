@@ -1,5 +1,6 @@
 package first;
 
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
@@ -84,21 +85,33 @@ class Fraction extends Number implements Printable {
     }
 
     public Fraction addition(Fraction otherFraction) {
-        int abNumerator, abDenominator, abGCD;
+        BigInteger abNumerator, abDenominator, abGCD;
+        BigInteger num = BigInteger.valueOf(numerator);
+        BigInteger den = BigInteger.valueOf(denominator);
+        BigInteger othernum = BigInteger.valueOf(otherFraction.numerator);
+        BigInteger otherden = BigInteger.valueOf(otherFraction.denominator);
 
         //bring to a mutual common denominator
-        abNumerator = numerator * otherFraction.denominator + otherFraction.numerator * denominator;
-        abDenominator = denominator * otherFraction.denominator;
+        abNumerator=num.multiply(otherden).add(othernum.multiply(den));
+//        abNumerator = numerator * otherFraction.denominator + otherFraction.numerator * denominator;
+        abDenominator=den.multiply(otherden);
+//        abDenominator = denominator * otherFraction.denominator;
 
         //shorten
         abGCD = getGCD(abNumerator, abDenominator);
-        abNumerator = abNumerator / abGCD;
-        abDenominator = abDenominator / abGCD;
+        abNumerator = abNumerator.divide(abGCD);
+        abDenominator = abDenominator.divide(abGCD);
 
-        return new Fraction(abNumerator, abDenominator);
+        return new Fraction(abNumerator.intValueExact(), abDenominator.intValueExact());
     }
     private static int getGCD(int a, int b) {
         return (b == 0) ? a :getGCD(b, a%b);
+    }
+    private static BigInteger getGCD(BigInteger a, BigInteger b) {
+        return (Objects.equals(b, BigInteger.ZERO)) ? a :getGCD(b, a.mod(b));
+    }
+    protected Boolean isValid(){
+        return numerator != 0 || denominator != 1;
     }
 
 
