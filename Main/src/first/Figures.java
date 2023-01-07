@@ -34,8 +34,5 @@ public abstract class Figures implements Printable{
         x += x1;
         y += y1;
     }
-    //gainPoints
-    public void gainPoints() {
-        points = points.addition(getFieldPoints(x, y));
-    }
+
 }

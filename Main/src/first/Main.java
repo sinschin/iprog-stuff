@@ -99,4 +99,8 @@ public class Main {
         inputHandler.start();
 
     }
+    //gives the player the points that the field he is standing on holds
+    public void gainPoints(Figures figure) {
+        figure.points.addition(GameField.getFieldPoints(figure.x, figure.y));
+    }
 }
