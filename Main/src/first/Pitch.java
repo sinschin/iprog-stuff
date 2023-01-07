@@ -30,7 +30,7 @@ public class Pitch {
         numerator = 10 + random.nextInt(989);
 
         //with check that numerator is bigger (assignment)
-        denominator = 10 + random.nextInt(numerator - 11);
+        denominator = 10 + random.nextInt(numerator - 9);
         //with check that numerator is bigger (assignment)
 
 
