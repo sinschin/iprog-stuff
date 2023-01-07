@@ -17,6 +17,7 @@ public abstract class Figures implements Printable{
         points = new Fraction(0);
         setStartPosition();
     }
+    //Start position
     private void setStartPosition() {
         Random r = new Random();
 
