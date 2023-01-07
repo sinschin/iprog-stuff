@@ -28,7 +28,7 @@ public abstract class Figures implements Printable{
     public void move(int x1,int y1) throws Exception {
         if(x + x1 > size - 1 || x + x1 < 0 || y + y1 > size - 1 || y + y1 < 0)
         {
-            throw new Exception("Feld überschritten... erneute Eingabe:");
+            throw new InvalidMoveException("Feld überschritten... erneute Eingabe: ");
         }
 
         x += x1;
