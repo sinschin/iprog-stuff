@@ -22,6 +22,7 @@ public class Figures implements Printable{
     private void setStartPosition() {
         Random r = new Random();
 
+        //draws a random number between 0 and size-1 (normaly 7)
         x = 0 + r.nextInt(size - 1);
         y = 0 + r.nextInt(size - 1);
     }
