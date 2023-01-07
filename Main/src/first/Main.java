@@ -104,13 +104,14 @@ public class Main {
                             case 'w':xDelta=-1;yDelta=0;break;
                         }
                     }
-                    figure.move(clamp(xDelta,-1,1),clamp(yDelta,-1,1));
+                    try {
+                        figure.move(clamp(xDelta,-1,1),clamp(yDelta,-1,1));
+                    }catch (InvalidMoveException ex){
+                        System.out.println(ex.getMessage());
+                    }
                     printField();
                 }
             }catch (Exception e){
-                if(e instanceof InvalidMoveException){
-                    System.out.println(((InvalidMoveException)e).getMessage());
-                }
                 e.printStackTrace();
             }
         },"async inp listner");

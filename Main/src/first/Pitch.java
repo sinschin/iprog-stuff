@@ -11,7 +11,7 @@ public class Pitch {
 
     //Methods
     public Pitch() {
-        field = new Fraction[size][size];
+        field = new Printable[size][size];
         generatePitch(size);
     }
         //GeneratePitch

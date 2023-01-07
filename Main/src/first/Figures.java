@@ -20,7 +20,8 @@ public class Figures implements Printable{
     Fraction points; //Points as a fraction, to counter inaccuracy of double and float
     int x, y; //Position on the board
     //Methoden
-    public Figures() {
+    public Figures(String name) {
+        this.name = name;
         points = new Fraction(0);
         setStartPosition();
     }
@@ -31,6 +32,7 @@ public class Figures implements Printable{
         //draws a random number between 0 and size-1 (normally 7)
         x = 0 + r.nextInt(size - 1);
         y = 0 + r.nextInt(size - 1);
+        move(0,0);//just to refresh the board position
     }
     //Move
     public void move(int x1,int y1) {
@@ -41,10 +43,7 @@ public class Figures implements Printable{
 
         x += x1;
         y += y1;
-    }
-
-    public Figures(String name) {
-        this.name = name;
+        Main.GameField.field[x][y]=this;
     }
     public static Figures genFigure(){
         try {
