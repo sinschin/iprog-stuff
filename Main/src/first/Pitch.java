@@ -7,7 +7,7 @@ import static first.Main.size;
 public class Pitch {
 
     //Variables
-    static Printable[][] field; //represents the playing field
+    protected static Printable[][] field; //represents the playing field
 
     //Methods
     public Pitch() {

@@ -3,6 +3,8 @@ package first;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Main {
     static String FigureNames ="WBACDEFGHIJKLMNOPQRSTUVXYZ";
@@ -35,27 +37,51 @@ public class Main {
 
 
         System.out.println(fieldSpacerStart);
-        for (int i = 0; i < size; i++) {
-            String row0 = fieldNormal;
-            String row1 = fieldNormalSeparator;
-            String row2 = fieldNormal;
-//            DecimalFormat decimalFormat = new DecimalFormat("###");
-            //replaces the row with the numerators
-            for (int j = 0; j < size; j++) {
-                numerator =  GameField.getNumerator(i,j);
-                row0=row0.replace(j+""+j+""+j,String.format("%03d", numerator));
+        HashMap<Pos,Printable> allFields = new HashMap<>();
+        for (int i = 0; i < Pitch.field.length; i++) {
+            Printable[] allX = Pitch.field[i];
+            for (int i1 = 0; i1 < allX.length; i1++) {
+                allFields.put(new Pos(i,i1),allX[i1]);
             }
-
-            //replaces the row with the denominators
-            for (int j = 0; j < size; j++) {
-                denominator =  GameField.getDenominator(i,j);
-                row2=row2.replace(j+""+j+""+j,String.format("%03d", denominator));
+        }
+        for (int i = 0; i < Pitch.field.length; i++) {
+            Printable[] allX = Pitch.field[i];
+            String row0 = fieldNormal;
+            String row1 = fieldNormal;
+            String row2 = fieldNormal;
+            for (int j = 0; j < allX.length; j++) {
+                String[] printOutSplit = allX[j].print().split("\n");
+                row0=row0.replace(j+""+j+""+j,printOutSplit[0]);
+                row1=row1.replace(j+""+j+""+j,printOutSplit[1]);
+                row2=row2.replace(j+""+j+""+j,printOutSplit[2]);
             }
             System.out.println(row0);
             System.out.println(row1);
             System.out.println(row2);
             if (i !=size-1) { System.out.println(fieldSpacerMiddle);}
         }
+
+//        for (int i = 0; i < size; i++) {
+//            String row0 = fieldNormal;
+//            String row1 = fieldNormalSeparator;
+//            String row2 = fieldNormal;
+////            DecimalFormat decimalFormat = new DecimalFormat("###");
+//            //replaces the row with the numerators
+//            for (int j = 0; j < size; j++) {
+//                numerator =  GameField.getNumerator(i,j);
+//                row0=row0.replace(j+""+j+""+j,String.format("%03d", numerator));
+//            }
+//
+//            //replaces the row with the denominators
+//            for (int j = 0; j < size; j++) {
+//                denominator =  GameField.getDenominator(i,j);
+//                row2=row2.replace(j+""+j+""+j,String.format("%03d", denominator));
+//            }
+//            System.out.println(row0);
+//            System.out.println(row1);
+//            System.out.println(row2);
+//            if (i !=size-1) { System.out.println(fieldSpacerMiddle);}
+//        }
         System.out.println(fieldSpacerEnd);
     }
     public static void startGame(){
