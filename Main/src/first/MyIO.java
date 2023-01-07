@@ -8,7 +8,7 @@ import java.math.BigInteger;
 **/
 import java.util.Scanner;
 
-public final class MyIO {
+public class MyIO {
     
     private MyIO() {}
 
