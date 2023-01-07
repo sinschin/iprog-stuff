@@ -37,28 +37,28 @@ public class Main {
 
 
         System.out.println(fieldSpacerStart);
-//        HashMap<Pos,Printable> allFields = new HashMap<>();
-//        for (int i = 0; i < Pitch.field.length; i++) {
-//            Printable[] allX = Pitch.field[i];
-//            for (int i1 = 0; i1 < allX.length; i1++) {
-//                allFields.put(new Pos(i,i1),allX[i1]);
-//            }
-//        }
+        HashMap<Pos,Printable> allFields = new HashMap<>();
         for (int i = 0; i < Pitch.field.length; i++) {
             Printable[] allX = Pitch.field[i];
+            for (int i1 = 0; i1 < allX.length; i1++) {
+                allFields.put(new Pos(i,i1),allX[i1]);
+            }
+        }
+        for(int y = 0;y< size  ;y++){
             String row0 = fieldNormal;
             String row1 = fieldNormal;
             String row2 = fieldNormal;
-            for (int j = 0; j < allX.length; j++) {
-                String[] printOutSplit = allX[j].print().split("\n");
+            for (int x = 0; x < size; x++) {
+                String[] printOutSplit = allFields.get(new Pos(x,y)).print().split("\n");
                 row0=row0.replace(j+""+j+""+j,printOutSplit[0]);
-                row1=row1.replace(j+""+j+""+j,printOutSplit[1]);
-                row2=row2.replace(j+""+j+""+j,printOutSplit[2]);
+                row1=row1.replace(x+""+x+""+x,printOutSplit[1]);
+//                row1=row1.replace(x+""+x+""+x,x+"/"+y); //just here for debugging
+                row2=row2.replace(x+""+x+""+x,printOutSplit[2]);
             }
             System.out.println(row0);
             System.out.println(row1);
             System.out.println(row2);
-            if (i !=size-1) { System.out.println(fieldSpacerMiddle);}
+            if (y !=size-1) { System.out.println(fieldSpacerMiddle);}
         }
 
 //        for (int i = 0; i < size; i++) {
@@ -90,26 +90,28 @@ public class Main {
             try {
                 final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 String inp_cmd = "";
+                Figures figure = null;
+                figure=figuresList.get(turn%figuresList.size());
                 while((inp_cmd = br.readLine()) != null){
-                    Figures figure = null;
-                    figure=figuresList.get(turn%figuresList.size());
                     int xDelta = 0;
                     int yDelta = 0;
                     for (char c : inp_cmd.toCharArray()) {
                         switch (c){
                             default:continue; //in case of invalid input
-                            case 'n':xDelta=0;yDelta=1;break;
-                            case 's':xDelta=0;yDelta=-1;break;
-                            case 'o':xDelta=1;yDelta=0;break;
-                            case 'w':xDelta=-1;yDelta=0;break;
+                            case 'n':xDelta=0;yDelta=-1;break;
+                            case 's':xDelta=0;yDelta=1;break;
+                            case 'o':xDelta=-1;yDelta=0;break;
+                            case 'w':xDelta=1;yDelta=0;break;
                         }
                     }
                     try {
                         figure.move(clamp(xDelta,-1,1),clamp(yDelta,-1,1));
+                        printField();
+                        figure=figuresList.get(turn%figuresList.size());
+                        System.out.println("we are "+figure.name);
                     }catch (InvalidMoveException ex){
                         System.out.println(ex.getMessage());
                     }
-                    printField();
                 }
             }catch (Exception e){
                 e.printStackTrace();

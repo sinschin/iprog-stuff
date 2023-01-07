@@ -41,6 +41,7 @@ public class Figures implements Printable{
             throw new InvalidMoveException("Feld überschritten... erneute Eingabe: ");
         }
 
+        Main.GameField.field[x][y]=new Fraction(0,1);
         x += x1;
         y += y1;
         Main.GameField.field[x][y]=this;

@@ -75,7 +75,7 @@ public class Pitch {
             field[x][y] = new Fraction(0); //empty field so that it can't be claimed again
             return points;
         }
-        return new Fraction(0,0);
+        return new Fraction(0,1);
     }
 }
 
