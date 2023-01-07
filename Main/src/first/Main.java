@@ -55,7 +55,6 @@ public class Main {
             for (int j = 0; j < size; j++) {
                 numerator =  GameField.getNumerator(i,j);
                 row0=row0.replace(j+""+j+""+j,String.format("%03d", numerator));
-//                System.out.print(numerator + "  │  ");
             }
 
             //replaces the row with the denominators
@@ -92,6 +91,9 @@ public class Main {
                     printField();
                 }
             }catch (Exception e){
+                if(e instanceof InvalidMoveException){
+                    System.out.println(((InvalidMoveException)e).getMessage());
+                }
                 e.printStackTrace();
             }
         },"async inp listner");
