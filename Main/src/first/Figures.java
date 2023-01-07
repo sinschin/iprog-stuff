@@ -39,7 +39,7 @@ public class Figures implements Printable{
     public void move(int x1,int y1) {
         if(x + x1 > size - 1 || x + x1 < 0 || y + y1 > size - 1 || y + y1 < 0)
         {
-            throw new InvalidMoveException("Feld überschritten... erneute Eingabe: ");
+            throw new InvalidMoveException("Field exceeded... try again: ");
         }
 //        Fraction fieldPoints = Main.GameField.getFieldPoints(x + x1, y + y1);
         points= points.addition(Main.GameField.getFieldPoints(x + x1, y + y1));
