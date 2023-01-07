@@ -86,7 +86,6 @@ public class Main {
                             case 's':figure.move(0,-1);break;
                             case 'o':figure.move(1,0);break;
                             case 'w':figure.move(-1,0);break;
-                            //TODO Case for SW and NO
                         }
                     }
 
