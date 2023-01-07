@@ -8,4 +8,5 @@ unused cus of other print system
 //    int posY=Integer.MAX_VALUE;
 
     String print();
+    Boolean isFraction();
 }

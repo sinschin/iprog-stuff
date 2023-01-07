@@ -10,6 +10,12 @@ public class Figures implements Printable{
     public String print(){
         return "   \n "+ name +" \n   ";
     }
+
+    @Override
+    public Boolean isFraction() {
+        return false;
+    }
+
     //Variablen
     Fraction points; //Points as a fraction, to counter inaccuracy of double and float
     int x, y; //Position on the board

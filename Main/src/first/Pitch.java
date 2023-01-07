@@ -7,7 +7,7 @@ import static first.Main.size;
 public class Pitch {
 
     //Variables
-    static Fraction[][] field; //represents the playing field
+    static Printable[][] field; //represents the playing field
 
     //Methods
     public Pitch() {
@@ -55,16 +55,28 @@ public class Pitch {
         return (b == 0) ? a :gcd(b, a%b);
     }
 
-    public int getNumerator(int numerator, int denominator) {
-        return field[numerator][denominator].getNumerator();
+    public int getNumerator(int x, int y) {
+        Printable printable = field[x][y];
+        if(printable.isFraction()){
+            return ((Fraction)field[x][y]).getNumerator();
+        }
+        return 0;
     }
-    public int getDenominator(int numerator, int denominator) {
-        return field[numerator][denominator].getDenominator();
+    public int getDenominator(int x, int y) {
+        Printable printable = field[x][y];
+        if(printable.isFraction()){
+            return ((Fraction)field[x][y]).getDenominator();
+        }
+        return 0;
     }
     public Fraction getFieldPoints(int x, int y) {
-        Fraction points = field[x][y];
-        field[x][y] = new Fraction(0); //empty field so that it can't be claimed again
-        return points;
+        Printable printable = field[x][y];
+        if(printable.isFraction()){
+            Fraction points = (Fraction) field[x][y];
+            field[x][y] = new Fraction(0); //empty field so that it can't be claimed again
+            return points;
+        }
+        return new Fraction(0,0);
     }
     public static void main(String[] args) {
 

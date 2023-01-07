@@ -106,4 +106,9 @@ class Fraction extends Number implements Printable {
         String print_line = "000\n---\n111";
         return print_line.replace("000",numerator+"").replace("111",denominator+"");
     }
+
+    @Override
+    public Boolean isFraction() {
+        return true;
+    }
 }
