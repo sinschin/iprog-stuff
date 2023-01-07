@@ -19,7 +19,6 @@ public class Main {
         figuresList.add(Figures.genFigure());
         figuresList.add(Figures.genFigure());
         startGame();
-        printField();
     }
 
     //Shows the playing field
@@ -91,8 +90,11 @@ public class Main {
                 final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 String inp_cmd = "";
                 Figures figure = null;
+                printField();
                 figure=figuresList.get(turn%figuresList.size());
-                while((inp_cmd = br.readLine()) != null){
+                System.out.println(figure.name+ "'s turn");
+                while ((inp_cmd = br.readLine()) != null){
+                    if(inp_cmd.equals(""))continue;
                     int xDelta = 0;
                     int yDelta = 0;
                     for (char c : inp_cmd.toCharArray()) {
@@ -100,16 +102,17 @@ public class Main {
                             default:continue; //in case of invalid input
                             case 'n':xDelta=0;yDelta=-1;break;
                             case 's':xDelta=0;yDelta=1;break;
-                            case 'o':xDelta=-1;yDelta=0;break;
-                            case 'w':xDelta=1;yDelta=0;break;
+                            case 'o':xDelta=1;yDelta=0;break;
+                            case 'w':xDelta=-1;yDelta=0;break;
                         }
                     }
                     try {
                         figure.move(clamp(xDelta,-1,1),clamp(yDelta,-1,1));
                         printField();
                         figure=figuresList.get(turn%figuresList.size());
-                        System.out.println("we are "+figure.name);
+                        System.out.println(figure.name+ "'s turn with "+figure.points.floatValue());
                     }catch (InvalidMoveException ex){
+                        turn--;
                         System.out.println(ex.getMessage());
                     }
                 }
@@ -124,7 +127,7 @@ public class Main {
         return Math.max(min, Math.min(max, cValue));
     }
     //gives the player the points that the field he is standing on holds
-    public void gainPoints(Figures figure) {
+    public static void gainPoints(Figures figure) {
         figure.points.addition(GameField.getFieldPoints(figure.x, figure.y));
     }
 }

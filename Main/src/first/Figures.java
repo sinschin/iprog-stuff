@@ -40,8 +40,9 @@ public class Figures implements Printable{
         {
             throw new InvalidMoveException("Feld überschritten... erneute Eingabe: ");
         }
-
-        Main.GameField.field[x][y]=new Fraction(0,1);
+//        Fraction fieldPoints = Main.GameField.getFieldPoints(x + x1, y + y1);
+        points= points.addition(Main.GameField.getFieldPoints(x + x1, y + y1));
+        Main.GameField.field[x][y]=new Fraction(Integer.MAX_VALUE,Integer.MAX_VALUE);
         x += x1;
         y += y1;
         Main.GameField.field[x][y]=this;
