@@ -2,20 +2,20 @@ package first;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Main {
     static String FigureNames ="WBERDCFGVHBJNMKOLI";
     static Pitch GameField;
     static Thread inputHandler = null;
-    static Figures whiteFigure = null;
-    static Figures blackFigure = null;
+    static ArrayList<Figures> figuresList = new ArrayList<>();
     static int turn = 0;
     public static int size = 8; //size of the playing field, standard 8
 
     public static void main(String[] args) {
         GameField = new Pitch();
-        whiteFigure=Figures.genFigure();
-        blackFigure=Figures.genFigure();
+        figuresList.add(Figures.genFigure());
+        figuresList.add(Figures.genFigure());
         startGame();
         printField();
     }
@@ -66,7 +66,7 @@ public class Main {
                 String inp_cmd = "";
                 while((inp_cmd = br.readLine()) != null){
                     Figures figure = null;
-                    figure=turn%2==0 ? whiteFigure : blackFigure; //fairly simple change to a switch case if u wanted more players
+                    figure=figuresList.get(turn%figuresList.size());
                     for (char c : inp_cmd.toCharArray()) {
                         switch (c){
                             default:continue; //in case of invalid input
