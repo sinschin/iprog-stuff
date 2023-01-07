@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Main {
-    static String FigureNames ="WBERDCFGVHBJNMKOLI";
+    static String FigureNames ="WBACDEFGHIJKLMNOPQRSTUVXYZ";
     static Pitch GameField;
     static Thread inputHandler = null;
     static ArrayList<Figures> figuresList = new ArrayList<>();
