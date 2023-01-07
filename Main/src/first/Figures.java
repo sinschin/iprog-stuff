@@ -32,6 +32,7 @@ public class Figures implements Printable{
         //draws a random number between 0 and size-1 (normally 7)
         x = 0 + r.nextInt(size - 1);
         y = 0 + r.nextInt(size - 1);
+        Main.GameField.field[x][y]=new Fraction(0,1);
         move(0,0);//just to refresh the board position
     }
     //Move
@@ -42,7 +43,7 @@ public class Figures implements Printable{
         }
 //        Fraction fieldPoints = Main.GameField.getFieldPoints(x + x1, y + y1);
         points= points.addition(Main.GameField.getFieldPoints(x + x1, y + y1));
-        Main.GameField.field[x][y]=new Fraction(Integer.MAX_VALUE,Integer.MAX_VALUE);
+        Main.GameField.field[x][y]=new Fraction(0,1);
         x += x1;
         y += y1;
         Main.GameField.field[x][y]=this;

@@ -112,7 +112,6 @@ public class Main {
                         figure=figuresList.get(turn%figuresList.size());
                         System.out.println(figure.name+ "'s turn with "+figure.points.floatValue());
                     }catch (InvalidMoveException ex){
-                        turn--;
                         System.out.println(ex.getMessage());
                     }
                 }

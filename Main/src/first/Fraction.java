@@ -104,7 +104,7 @@ class Fraction extends Number implements Printable {
 
     @Override
     public String print() {
-        if(numerator==Integer.MAX_VALUE&&denominator==Integer.MAX_VALUE)return "   \n   \n   ";
+        if(numerator==0&&denominator==1)return "   \n   \n   ";
         String print_line = "000\n---\n111";
 //        print_line= print_line.replace("---",new DecimalFormat("#,#").format(floatValue())); //just for debugging
         return print_line.replace("000",String.format("%03d", numerator)).replace("111",String.format("%03d", denominator));
