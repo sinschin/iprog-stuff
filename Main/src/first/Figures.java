@@ -41,6 +41,13 @@ public class Figures implements Printable{
         {
             throw new InvalidMoveException("Field exceeded... try again: ");
         }
+        Pos newPos = new Pos(x+x1,y+y1);
+        for (Figures figures : Main.figuresList) {
+            if(new Pos(figures.x,figures.y).equals(newPos)){
+                throw new InvalidMoveException("Cant move on another player: ");
+            }
+        }
+
 //        Fraction fieldPoints = Main.GameField.getFieldPoints(x + x1, y + y1);
         points= points.addition(Main.GameField.getFieldPoints(x + x1, y + y1));
         Main.GameField.field[x][y]=new Fraction(0,1);
