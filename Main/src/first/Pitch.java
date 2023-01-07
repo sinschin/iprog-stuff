@@ -26,7 +26,6 @@ public class Pitch {
     private static Fraction createFraction() {
         int numerator, denominator, gcdivisor;
         Random random = new Random();
-        //FIXME remove this
         //create random number between 10 and 999
         numerator = 10 + random.nextInt(989);
 
@@ -77,9 +76,6 @@ public class Pitch {
             return points;
         }
         return new Fraction(0,0);
-    }
-    public static void main(String[] args) {
-
     }
 }
 
