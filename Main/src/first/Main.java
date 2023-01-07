@@ -33,17 +33,17 @@ public class Main {
         final String fieldSpacerMiddle =      "├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤";
         final String fieldSpacerEnd    =      "└───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘";
         final String fieldNormal       =      "│  000  │  111  │  222  │  333  │  444  │  555  │  666  │  777  │";
-        final String fieldNormalSeparator=    "│  ---  │  ---  │  ---  │  ---  │  ---  │  ---  │  ---  │  ---  │";
+//        final String fieldNormalSeparator=    "│  ---  │  ---  │  ---  │  ---  │  ---  │  ---  │  ---  │  ---  │";
 
 
         System.out.println(fieldSpacerStart);
-        HashMap<Pos,Printable> allFields = new HashMap<>();
-        for (int i = 0; i < Pitch.field.length; i++) {
-            Printable[] allX = Pitch.field[i];
-            for (int i1 = 0; i1 < allX.length; i1++) {
-                allFields.put(new Pos(i,i1),allX[i1]);
-            }
-        }
+//        HashMap<Pos,Printable> allFields = new HashMap<>();
+//        for (int i = 0; i < Pitch.field.length; i++) {
+//            Printable[] allX = Pitch.field[i];
+//            for (int i1 = 0; i1 < allX.length; i1++) {
+//                allFields.put(new Pos(i,i1),allX[i1]);
+//            }
+//        }
         for (int i = 0; i < Pitch.field.length; i++) {
             Printable[] allX = Pitch.field[i];
             String row0 = fieldNormal;
