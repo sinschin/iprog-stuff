@@ -30,9 +30,8 @@ public class Pitch {
         numerator = 10 + random.nextInt(989);
 
         //with check that numerator is bigger (assignment)
-        do {
-            denominator = 10 + random.nextInt(989);
-        } while (numerator < denominator);
+        denominator = 10 + random.nextInt(numerator - 11);
+        //with check that numerator is bigger (assignment)
 
 
         //truncate fraction
