@@ -27,7 +27,7 @@ public class Main {
     public static void printField(){
         turn++;
 
-        int numerator, denominator;
+//        int numerator, denominator;
 
         final String fieldSpacerStart  =      "┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐";
         final String fieldSpacerMiddle =      "├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤";
