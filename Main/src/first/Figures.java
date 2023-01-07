@@ -32,6 +32,12 @@ public class Figures implements Printable{
         //draws a random number between 0 and size-1 (normally 7)
         x = 0 + r.nextInt(size - 1);
         y = 0 + r.nextInt(size - 1);
+        for (Figures figures : Main.figuresList) {
+            if(new Pos(figures.x,figures.y).equals(new Pos(x,y))){
+                setStartPosition();
+                return;
+            }
+        }
         Main.GameField.field[x][y]=new Fraction(0,1);
         move(0,0);//just to refresh the board position
     }
