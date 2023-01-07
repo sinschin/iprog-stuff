@@ -50,7 +50,7 @@ public class Main {
             String row2 = fieldNormal;
             for (int x = 0; x < size; x++) {
                 String[] printOutSplit = allFields.get(new Pos(x,y)).print().split("\n");
-                row0=row0.replace(j+""+j+""+j,printOutSplit[0]);
+                row0=row0.replace(x+""+x+""+x,printOutSplit[0]);
                 row1=row1.replace(x+""+x+""+x,printOutSplit[1]);
 //                row1=row1.replace(x+""+x+""+x,x+"/"+y); //just here for debugging
                 row2=row2.replace(x+""+x+""+x,printOutSplit[2]);
