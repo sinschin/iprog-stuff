@@ -22,12 +22,12 @@ public class Figures implements Printable{
     private void setStartPosition() {
         Random r = new Random();
 
-        //draws a random number between 0 and size-1 (normaly 7)
+        //draws a random number between 0 and size-1 (normally 7)
         x = 0 + r.nextInt(size - 1);
         y = 0 + r.nextInt(size - 1);
     }
     //Move
-    public void move(int x1,int y1) throws Exception {
+    public void move(int x1,int y1) {
         if(x + x1 > size - 1 || x + x1 < 0 || y + y1 > size - 1 || y + y1 < 0)
         {
             throw new InvalidMoveException("Feld überschritten... erneute Eingabe: ");
