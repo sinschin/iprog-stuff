@@ -116,14 +116,14 @@ public class Main {
                     for (char c : inp_cmd.toCharArray()) {
                         switch (c){
                             default:continue; //in case of invalid input
-                            case 'n':xDelta+= 0;yDelta+=-1;break;
-                            case 's':xDelta+= 0;yDelta+= 1;break;
-                            case 'o':xDelta+= 1;yDelta+= 0;break;
-                            case 'w':xDelta+=-1;yDelta+= 0;break;
-//                            case 'w':xDelta+= 0;yDelta+=-1;break;
+//                            case 'n':xDelta+= 0;yDelta+=-1;break;
 //                            case 's':xDelta+= 0;yDelta+= 1;break;
-//                            case 'd':xDelta+= 1;yDelta+= 0;break;
-//                            case 'a':xDelta+=-1;yDelta+= 0;break;
+//                            case 'o':xDelta+= 1;yDelta+= 0;break;
+//                            case 'w':xDelta+=-1;yDelta+= 0;break;
+                            case 'w':xDelta+= 0;yDelta+=-1;break;
+                            case 's':xDelta+= 0;yDelta+= 1;break;
+                            case 'd':xDelta+= 1;yDelta+= 0;break;
+                            case 'a':xDelta+=-1;yDelta+= 0;break;
                         }
                     }
                     try {

@@ -70,7 +70,7 @@ public class Figures implements Printable{
 //                    bp.addition(fieldPoints);
 //                }
             }catch (ArithmeticException e){
-                System.out.println("well that's it\nFIXME this is broken due to us not being able to count that high (we can count higher but the problem is that the nominator or denominator is too big for an int) with that stupid useless and trash Fraction system \nTODO figure something out we might have to move the whole Fraction to a BigInt\nand that wound be a big blow to performance (not like we even remotely cared for that)");
+                System.out.println("FIXME this is not even thrown in the statement");
             }
 
         }
