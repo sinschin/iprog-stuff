@@ -17,7 +17,7 @@ public class Main {
 
     public static void main(String[] args) {
         GameField = new Pitch();
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 2; i++) {
             figuresList.add(Figures.genFigure());
         }
         startGame();
@@ -116,14 +116,14 @@ public class Main {
                     for (char c : inp_cmd.toCharArray()) {
                         switch (c){
                             default:continue; //in case of invalid input
-//                            case 'n':xDelta+= 0;yDelta+=-1;break;
-//                            case 's':xDelta+= 0;yDelta+= 1;break;
-//                            case 'o':xDelta+= 1;yDelta+= 0;break;
-//                            case 'w':xDelta+=-1;yDelta+= 0;break;
-                            case 'w':xDelta+= 0;yDelta+=-1;break;
+                            case 'n':xDelta+= 0;yDelta+=-1;break;
                             case 's':xDelta+= 0;yDelta+= 1;break;
-                            case 'd':xDelta+= 1;yDelta+= 0;break;
-                            case 'a':xDelta+=-1;yDelta+= 0;break;
+                            case 'o':xDelta+= 1;yDelta+= 0;break;
+                            case 'w':xDelta+=-1;yDelta+= 0;break;
+//                            case 'w':xDelta+= 0;yDelta+=-1;break;
+//                            case 's':xDelta+= 0;yDelta+= 1;break;
+//                            case 'd':xDelta+= 1;yDelta+= 0;break;
+//                            case 'a':xDelta+=-1;yDelta+= 0;break;
                         }
                     }
                     try {

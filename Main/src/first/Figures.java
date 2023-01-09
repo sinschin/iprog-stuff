@@ -1,5 +1,7 @@
 package first;
 
+import java.math.BigInteger;
+import java.util.Objects;
 import java.util.Random;
 import static first.Main.size;
 
@@ -22,7 +24,7 @@ public class Figures implements Printable{
     //Methoden
     public Figures(String name) {
         this.name = name;
-        points = new Fraction(0);
+        points = new Fraction(BigInteger.ZERO);
         setStartPosition();
     }
     //Start position
@@ -57,7 +59,7 @@ public class Figures implements Printable{
         //so that is why this GREAT fix is here
         Fraction fieldPoints = Main.GameField.getFieldPoints(x + x1, y + y1);
         //we can kinda just skip is useless cpu intensive process if its 0 since It's something + 0
-        if(fieldPoints.getNumerator()!=0){
+        if(!Objects.equals(fieldPoints.getNumerator(), BigInteger.ZERO)){
             try {
 //                float before = points.floatValue();
 //                Fraction bp = points;

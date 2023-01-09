@@ -10,27 +10,32 @@ import java.util.Objects;
  **/
 @SuppressWarnings("unused")
 class Fraction extends Number implements Printable {
-    private final int numerator;
-    private final int denominator;
+    private final BigInteger numerator;
+    private final BigInteger denominator;
 
-    public Fraction(int numerator, int denominator) {
-        if (denominator == 0) {
+    public Fraction(BigInteger numerator, BigInteger denominator) {
+        if (Objects.equals(denominator, BigInteger.ZERO)) {
             throw new RuntimeException(new IllegalArgumentException("denominator is zero"));
         }
-        this.numerator = Math.abs(numerator);
-        this.denominator = Math.abs(denominator);
+        this.numerator = numerator.abs();
+        this.denominator = denominator.abs();
     }
 
-    public Fraction(int numerator) {
+    public Fraction(BigInteger numerator) {
         this.numerator = numerator;
-        this.denominator = 1;
+        this.denominator = BigInteger.ONE;
     }
 
-    public int getNumerator() {
+    public Fraction(int numerator, int denominator) {
+        this.numerator = BigInteger.valueOf(numerator);
+        this.denominator = BigInteger.valueOf(denominator);
+    }
+
+    public BigInteger getNumerator() {
         return this.numerator;
     }
 
-    public int getDenominator() {
+    public BigInteger getDenominator() {
         return this.denominator;
     }
 
@@ -39,15 +44,20 @@ class Fraction extends Number implements Printable {
     }
 
     public double doubleValue() {
-        return ((double) numerator) / ((double) denominator);
+        return (numerator.doubleValue()) / (denominator.doubleValue());
     }
 
     public float floatValue() {
         return (float) this.doubleValue();
     }
 
+    public BigInteger BigIntegerValue() {
+        return numerator.divide(denominator);
+    }
+
+    @Override
     public int intValue() {
-        return (int) this.doubleValue();
+        return (int)doubleValue();
     }
 
     public long longValue() {
@@ -58,13 +68,12 @@ class Fraction extends Number implements Printable {
         return (short) this.doubleValue();
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Fraction fraction = (Fraction) o;
-        return numerator == fraction.numerator && denominator == fraction.denominator;
+        return Objects.equals(numerator, fraction.numerator) && Objects.equals(denominator, fraction.denominator);
     }
 
     @Override
@@ -72,27 +81,15 @@ class Fraction extends Number implements Printable {
         return Objects.hash(numerator, denominator);
     }
 
-    public int compareTo(Fraction frac) {
-        long t = (long) getNumerator() * frac.getDenominator();
-        long f = (long) frac.getNumerator() * getDenominator();
-        int result = 0;
-        if (t > f) {
-            result = 1;
-        } else if (f > t) {
-            result = -1;
-        }
-        return result;
-    }
+
 
     public Fraction addition(Fraction otherFraction) {
         BigInteger abNumerator, abDenominator, abGCD;
-        BigInteger num = BigInteger.valueOf(numerator);
-        BigInteger den = BigInteger.valueOf(denominator);
-        BigInteger othernum = BigInteger.valueOf(otherFraction.numerator);
-        BigInteger otherden = BigInteger.valueOf(otherFraction.denominator);
+        BigInteger den = denominator;
+        BigInteger otherden = otherFraction.denominator;
 
         //bring to a mutual common denominator
-        abNumerator=num.multiply(otherden).add(othernum.multiply(den));
+        abNumerator= numerator.multiply(otherden).add(otherFraction.numerator.multiply(den));
 //        abNumerator = numerator * otherFraction.denominator + otherFraction.numerator * denominator;
         abDenominator=den.multiply(otherden);
 //        abDenominator = denominator * otherFraction.denominator;
@@ -102,22 +99,19 @@ class Fraction extends Number implements Printable {
         abNumerator = abNumerator.divide(abGCD);
         abDenominator = abDenominator.divide(abGCD);
 
-        return new Fraction(abNumerator.intValueExact(), abDenominator.intValueExact());
-    }
-    private static int getGCD(int a, int b) {
-        return (b == 0) ? a :getGCD(b, a%b);
+        return new Fraction(abNumerator, abDenominator);
     }
     private static BigInteger getGCD(BigInteger a, BigInteger b) {
         return (Objects.equals(b, BigInteger.ZERO)) ? a :getGCD(b, a.mod(b));
     }
     protected Boolean isValid(){
-        return numerator != 0 || denominator != 1;
+        return !Objects.equals(numerator, BigInteger.ZERO) || !Objects.equals(denominator, BigInteger.ONE);
     }
 
 
     @Override
     public String print() {
-        if(numerator==0&&denominator==1)return "   \n   \n   ";
+        if(Objects.equals(numerator, BigInteger.ZERO) && Objects.equals(denominator, BigInteger.ONE))return "   \n   \n   ";
         String print_line = "000\n---\n111";
 //        print_line= print_line.replace("---",new DecimalFormat("#,#").format(floatValue())); //just for debugging
         return print_line.replace("000",String.format("%03d", numerator)).replace("111",String.format("%03d", denominator));

@@ -1,5 +1,6 @@
 package first;
 
+import java.math.BigInteger;
 import java.util.Random;
 
 import static first.Main.size;
@@ -53,25 +54,25 @@ public class Pitch {
         return (b == 0) ? a :gcd(b, a%b);
     }
 
-    public int getNumerator(int x, int y) {
+    public BigInteger getNumerator(int x, int y) {
         Printable printable = field[x][y];
         if(printable.isFraction()){
             return ((Fraction)field[x][y]).getNumerator();
         }
-        return 0;
+        return BigInteger.ZERO;
     }
-    public int getDenominator(int x, int y) {
+    public BigInteger getDenominator(int x, int y) {
         Printable printable = field[x][y];
         if(printable.isFraction()){
             return ((Fraction)field[x][y]).getDenominator();
         }
-        return 0;
+        return BigInteger.ZERO;
     }
     public Fraction getFieldPoints(int x, int y) {
         Printable printable = field[x][y];
         if(printable.isFraction()){
             Fraction points = (Fraction) field[x][y];
-            field[x][y] = new Fraction(0); //empty field so that it can't be claimed again
+            field[x][y] = new Fraction(BigInteger.ZERO); //empty field so that it can't be claimed again
             return points;
         }
         return new Fraction(0,1);
