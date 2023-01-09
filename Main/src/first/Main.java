@@ -133,7 +133,7 @@ public class Main {
                             System.out.println("and its over");
                             ArrayList<Figures> players =figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
                             for (int i = 0; i < players.size(); i++) {
-                                System.out.println(i+". "+players.get(i).name+" "+players.get(i).points.floatValue());
+                                System.out.println(players.size()-i+". "+players.get(i).name+" "+players.get(i).points.floatValue());
                             }
                             System.exit(2);
                             break;
@@ -142,7 +142,7 @@ public class Main {
                         figure=figuresList.get(turn%figuresList.size());
                         ArrayList<Figures> players =figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
                         for (int i = 0; i < players.size(); i++) {
-                            System.out.println(i+1+". "+players.get(i).name+" "+players.get(i).points.floatValue());
+                            System.out.println(players.size()-i+". "+players.get(i).name+" "+players.get(i).points.floatValue());
                         }
                         System.out.println(figure.name+ "'s turn with "+figure.points.floatValue());
                     }catch (InvalidMoveException ex){
