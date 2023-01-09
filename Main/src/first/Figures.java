@@ -45,9 +45,12 @@ public class Figures implements Printable{
     }
     //Move
     public void move(int x1,int y1) {
-        if(x + x1 > size - 1 || x + x1 < 0 || y + y1 > size - 1 || y + y1 < 0 || (name.equals("W") && x1==1&&y1==1) || (name.equals("B") && x1==-1&&y1==-1))
+        if(x + x1 > size - 1 || x + x1 < 0 || y + y1 > size - 1 || y + y1 < 0)
         {
             throw new InvalidMoveException("Field exceeded... try again: ");
+        }
+        if((name.equals("W") && x1==1&&y1==1) || (name.equals("B") && x1==-1&&y1==-1)){
+            throw new InvalidMoveException("Unable to do this special move try again: ");
         }
         Pos newPos = new Pos(x+x1,y+y1);
         for (Figures figures : Main.figuresList) {
