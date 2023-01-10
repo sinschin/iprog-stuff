@@ -72,6 +72,7 @@ public class Main {
         } while (faultyInput);
     }
 
+    //
     public static void showRules() {
         final String movementRules = "Movement Type the keys n, w, s, o (=North, West, South, East).";
         final String movement2Rules = "Special Movement Type the keys no and sw (=Northeast, Southwest)";
