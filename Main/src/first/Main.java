@@ -141,6 +141,10 @@ public class Main {
                         }
                     }
                     try {
+                        if(inp_cmd.equalsIgnoreCase("Exit")){
+                            System.exit(2);
+                            break;
+                        }
                         if(xDelta==0&&yDelta==0)throw new InvalidMoveException("Unknown input");
                         figure.move(clamp(xDelta,-1,1),clamp(yDelta,-1,1));
                         if(nothingLeft()){
