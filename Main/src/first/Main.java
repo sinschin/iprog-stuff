@@ -19,12 +19,12 @@ public class Main {
     public static int size = 8; //size of the playing field, standard 8
 
     public static void main(String[] args) {
+        showNameSign();
         while (true) {
             GameField = new Pitch();
             for (int i = 0; i < playerCount; i++) {
                 figuresList.add(Figures.genFigure());
             }
-            showNameSign();
             showMenu();
         }
     }
@@ -52,7 +52,9 @@ public class Main {
                     MyIO.writeln("Here we go!");
                     startGame();
                     break;
-                case "2": showRules();
+                case "2":
+                    MyIO.writeln("\nHere are the rules:");
+                    showRules();
                     break;
                 case "3": /*showHighscore();*/
                     break;
@@ -74,11 +76,12 @@ public class Main {
 
     //
     public static void showRules() {
-        final String movementRules = "Movement Type the keys n, w, s, o (=North, West, South, East).";
-        final String movement2Rules = "Special Movement Type the keys no and sw (=Northeast, Southwest)";
-        final String victoryRules = "Victory Collect the most points of the fractions. The game is over when the last available square has been accessed.";
+        final String movementRules = "Movement: \nType the keys n, w, s, o (=North, West, South, East), to move in the direction";
+        final String movement2Rules = "You can move diagonal with the keys no or sw (=Northeast, Southwest)";
+        final String victoryRules = "Victory:\n Collect the most points of the fractions. \nThe game is over when the last available square has been accessed,\nor a player has more than 53 points.";
 
-        System.out.println("\n" + movementRules + "\n" + movement2Rules + "\n" + victoryRules);
+        System.out.println(movementRules + "\n" + movement2Rules + "\n\n" + victoryRules);
+        MyIO.promptAndRead("\nPress enter to continue\n\n");
     }
 
     //Shows the playing field
