@@ -43,7 +43,7 @@ public class Figures implements Printable{
                 return;
             }
         }
-        Main.GameField.field[x][y]=new Fraction(0,1);
+        Pitch.field[x][y]=new Fraction(0,1);
         move(0,0);//just to refresh the board position
     }
     //Move
@@ -80,10 +80,10 @@ public class Figures implements Printable{
             }
 
         }
-        Main.GameField.field[x][y]=new Fraction(0,1);
+        Pitch.field[x][y]=new Fraction(0,1);
         x += x1;
         y += y1;
-        Main.GameField.field[x][y]=this;
+        Pitch.field[x][y]=this;
     }
     public static Figures genFigure(){
         try {

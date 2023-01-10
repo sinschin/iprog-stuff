@@ -16,7 +16,7 @@ public class Main {
     static String FigureNames ="WBACDEFGHIJKLMNOPQRSTUVXYZ";
     static Pitch GameField;
     static int playerCount = 2; //standard 2, max 8;
-    static Thread inputHandler = null;
+//    static Thread inputHandler = null; //cus the other persons didn't understand multithreading
     static ArrayList<Figures> figuresList = new ArrayList<>();
     static int turn = 0;
     public static int size = 8; //size of the playing field, standard 8
@@ -46,39 +46,43 @@ public class Main {
         MyIO.writeln("What do you want to do?");
         MyIO.writeln("1 - Quick start");
         MyIO.writeln("2 - Show rules");
-        //MyIO.writeln("3 - Show highscore");
+//        MyIO.writeln("3 - Show highscore"); //kinda useless since it always wins at 53 points
         MyIO.writeln("Q - Exit program");
         do {
             faultyInput = false;
             switch (MyIO.promptAndRead("Your selection: ").toLowerCase()) {
-                case "1":
+                case "1" -> {
                     MyIO.writeln("Here we go!");
                     startGame();
-                    break;
-                case "2":
+                }
+                case "2" -> {
                     MyIO.writeln("\nHere are the rules:");
                     showRules();
-                    break;
-                //case "3": /*showHighscore();*/ break;
-                case "q":
+                }
+//                case "3": /*showHighscore();*/
+//                    break;
+                case "q" -> {
                     MyIO.write("Program will be terminated");
                     for (int i = 0; i < 3; i++) {
                         try {
-                            TimeUnit.SECONDS.sleep(1);
-                        } catch(Exception ignored) {}
+                            Thread.sleep(1000);
+                        } catch (InterruptedException ignored) {
+                        }
                         MyIO.write(".");
                     }
                     System.exit(2);
-                default:
+                }
+                default -> {
                     MyIO.writeln("Unknown input");
                     faultyInput = true;
+                }
             }
         } while (faultyInput);
     }
 
     //
     public static void showRules() {
-        final String movementRules = "Movement: \nType the keys n, w, s, o (=North, West, South, East), to move in the direction.";
+        final String movementRules = "Movement: \nType the keys w, a, s, d (=North, East, South, West), to move in the direction.";
         final String movement2Rules = "You can move diagonal with the keys no or sw (=Northeast, Southwest).";
         final String victoryRules = "Victory:\nCollect the most points of the fractions. \nThe game is over when the last available square has been accessed,\nor a player has more than 53 points.";
 
@@ -162,79 +166,80 @@ public class Main {
         return true;
     }
     public static void startGame(){
-        if(inputHandler!=null)inputHandler.interrupt();
-            try {
-                final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-                String inp_cmd = "";
-                Figures figure = null;
-                printField();
-                figure=figuresList.get(turn%figuresList.size());
-                System.out.print(figure.name+ "'s turn ");
-                if (turn%figuresList.size() == 0) {
-                    //MyIO.writeln("| Use N, O, S, W or NO) ");
-                    MyIO.write("| Use W, D, S, A or WD ");
-                } else {
-                    //MyIO.writeln("| Use N, O, S, W or SW) ");
-                    MyIO.write("| Use W, D, S, A or SA ");
-                }
-                MyIO.writeln("+ enter | Type \"quit\" to exit");
+        try {
 
-                while ((inp_cmd = br.readLine()) != null){
-                    if(inp_cmd.equals(""))continue;
-                    int xDelta = 0;
-                    int yDelta = 0;
-                    for (char c : inp_cmd.toCharArray()) {
-                        switch (c){
-                            default:continue; //in case of invalid input
-//                            case 'n':xDelta+= 0;yDelta+=-1;break;
-//                            case 's':xDelta+= 0;yDelta+= 1;break;
-//                            case 'o':xDelta+= 1;yDelta+= 0;break;
-//                            case 'w':xDelta+=-1;yDelta+= 0;break;
-                            case 'w':xDelta+= 0;yDelta+=-1;break;
-                            case 's':xDelta+= 0;yDelta+= 1;break;
-                            case 'd':xDelta+= 1;yDelta+= 0;break;
-                            case 'a':xDelta+=-1;yDelta+= 0;break;
-                        }
-                    }
-                    try {
-                        if(inp_cmd.equalsIgnoreCase("quit")){
-                            System.exit(2);
-                            break;
-                        }
-                        if(xDelta==0&&yDelta==0)throw new InvalidMoveException("Unknown input");
-                        figure.move(clamp(xDelta,-1,1),clamp(yDelta,-1,1));
-                        if(nothingLeft()){
-                            System.out.println("all fields are empty!");
-                            ArrayList<Figures> players =figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
-                            announceWinner(figuresList.get(1).points.floatValue() > figuresList.get(2).points.floatValue() ? figuresList.get(1): figuresList.get(2), players);
-                            break;
-                        }
-                        figure=figuresList.get(turn%figuresList.size());
-                        ArrayList<Figures> players =figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
-                        if (figure.points.floatValue() > 53.0f) {
-                            announceWinner(figure, players);
-                        } //check if points are reached
-                        printField();
-                        for (int i = 0; i < players.size(); i++) { //points list
-                            System.out.println(players.size()-i+". "+players.get(i).name+" "+players.get(i).points.floatValue());
-                        }
-                        if (turn%figuresList.size() == 0) {
-                            //MyIO.writeln("| Use N, O, S, W or NO) ");
-                            MyIO.write("Use W, D, S, A or WD ");
-                        } else {
-                            //MyIO.writeln("| Use N, O, S, W or SW) ");
-                            MyIO.write("Use W, D, S, A or SA ");
-                        }
-                        MyIO.writeln("+ enter | Type \"quit\" to exit");
-                        System.out.println(figure.name+ "'s turn with "+figure.points.floatValue());
-
-                    }catch (InvalidMoveException ex){
-                        System.out.println(ex.getMessage());
-                    }
-                }
-            }catch (Exception e){
-                e.printStackTrace();
+            final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String inp_cmd = "";
+            Figures figure = null;
+            printField();
+            turn=0;
+            figure=figuresList.get(turn%figuresList.size());
+            System.out.print(figure.name+ "'s turn ");
+            if (figure.name.equals("W")) {
+                //MyIO.writeln("| Use N, O, S, W or NO) ");
+                MyIO.write("| Use W, D, S, A or WD ");
+            } else {
+                //MyIO.writeln("| Use N, O, S, W or SW) ");
+                MyIO.write("| Use W, D, S, A or SA ");
             }
+            MyIO.writeln("+ enter | Type \"quit\" to exit");
+
+            while ((inp_cmd = br.readLine()) != null){
+                if(inp_cmd.equals(""))continue;
+                int xDelta = 0;
+                int yDelta = 0;
+                for (char c : inp_cmd.toCharArray()) {
+                    switch (c){
+                        default:continue; //in case of invalid input
+//                        case 'n':xDelta+= 0;yDelta+=-1;break;
+//                        case 's':xDelta+= 0;yDelta+= 1;break;
+//                        case 'o':xDelta+= 1;yDelta+= 0;break;
+//                        case 'w':xDelta+=-1;yDelta+= 0;break;
+                        case 'w':xDelta+= 0;yDelta+=-1;break;
+                        case 's':xDelta+= 0;yDelta+= 1;break;
+                        case 'd':xDelta+= 1;yDelta+= 0;break;
+                        case 'a':xDelta+=-1;yDelta+= 0;break;
+                    }
+                }
+                try {
+                    if(inp_cmd.equalsIgnoreCase("quit")){
+                        System.exit(2);
+                        break;
+                    }
+                    if(xDelta==0&&yDelta==0)throw new InvalidMoveException("Unknown input");
+                    figure.move(clamp(xDelta,-1,1),clamp(yDelta,-1,1));
+                    if(nothingLeft()){
+                        System.out.println("all fields are empty!");
+                        ArrayList<Figures> players =figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
+                        announceWinner(figuresList.get(1).points.floatValue() > figuresList.get(2).points.floatValue() ? figuresList.get(1): figuresList.get(2), players);
+                        break;
+                    }
+                    ArrayList<Figures> players =figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
+                    if (figure.points.floatValue() > 53.0f) {
+                        announceWinner(figure, players);
+                    } //check if points are reached
+                    printField();
+                    figure=figuresList.get(turn%figuresList.size());
+                    for (int i = 0; i < players.size(); i++) { //points list
+                        System.out.println(players.size()-i+". "+players.get(i).name+" "+players.get(i).points.floatValue());
+                    }
+                    if (turn%figuresList.size() == 0) {
+                        //MyIO.writeln("| Use N, O, S, W or NO) ");
+                        MyIO.write("Use W, D, S, A or WD ");
+                    } else {
+                        //MyIO.writeln("| Use N, O, S, W or SW) ");
+                        MyIO.write("Use W, D, S, A or SA ");
+                    }
+                    MyIO.writeln("+ enter | Type \"quit\" to exit");
+                    System.out.println(figure.name+ "'s turn with "+figure.points.floatValue());
+
+                }catch (InvalidMoveException ex){
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
     public static int clamp(int cValue, int min, int max) {
         return Math.max(min, Math.min(max, cValue));
