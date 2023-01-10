@@ -40,7 +40,6 @@ public class Main {
     }
     public static void showMenu() {
         boolean faultyInput;
-        //TODO Menu
         MyIO.writeln("What do you want to do?");
         MyIO.writeln("1 - Quick start");
         MyIO.writeln("2 - Show rules");
@@ -74,7 +73,6 @@ public class Main {
     }
 
     //Shows the playing field
-    //TODO an option to show W/B and empty fields (currently the would be shown as 0/1).
     public static void printField(){
         turn++;
 
@@ -192,18 +190,18 @@ public class Main {
                         if(xDelta==0&&yDelta==0)throw new InvalidMoveException("Unknown input");
                         figure.move(clamp(xDelta,-1,1),clamp(yDelta,-1,1));
                         if(nothingLeft()){
-                            System.out.println("all fields are empty!"); //TODO Ende besser beschreiben, der mit mehr Punkten gewinnt
+                            System.out.println("all fields are empty!");
                             ArrayList<Figures> players =figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
-                            for (int i = 0; i < players.size(); i++) {
-                                System.out.println(players.size()-i+". "+players.get(i).name+" "+players.get(i).points.floatValue());
-                            }
-                            System.exit(2);
+                            announceWinner(figuresList.get(1).points.floatValue() > figuresList.get(2).points.floatValue() ? figuresList.get(1): figuresList.get(2), players);
                             break;
                         }
-                        printField();
                         figure=figuresList.get(turn%figuresList.size());
                         ArrayList<Figures> players =figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
-                        for (int i = 0; i < players.size(); i++) {
+                        if (figure.points.floatValue() > 53.0f) {
+                            announceWinner(figure, players);
+                        } //check if points are reached
+                        printField();
+                        for (int i = 0; i < players.size(); i++) { //points list
                             System.out.println(players.size()-i+". "+players.get(i).name+" "+players.get(i).points.floatValue());
                         }
                         if (turn%figuresList.size() == 0) {
@@ -215,6 +213,7 @@ public class Main {
                         }
                         MyIO.writeln("+ enter | Type \"quit\" to exit");
                         System.out.println(figure.name+ "'s turn with "+figure.points.floatValue());
+
                     }catch (InvalidMoveException ex){
                         System.out.println(ex.getMessage());
                     }
@@ -228,10 +227,10 @@ public class Main {
     }
     public static void announceWinner(Figures winner, ArrayList<Figures> players) {
         MyIO.writeln("We have a Winner!");
-        System.out.println(winner.name + " wins with " + winner.points + " Congratulations!");
+        System.out.println(winner.name + " wins with " + winner.points.floatValue() + " Congratulations!");
         for (Figures figure : players) {
             if (figure.name != winner.name) {
-                System.out.println(figure.name + " has " + figure.points);
+                System.out.println(figure.name + " has " + figure.points.floatValue());
             }
         }
         MyIO.writeln("");
@@ -242,7 +241,9 @@ public class Main {
                 case "a":
                     startGame();
                     break;
-                case "m": break;
+                case "m":
+                    showMenu();
+                    break;
                 case "q":
                     MyIO.write("Program will be terminated");
                     System.exit(2);
