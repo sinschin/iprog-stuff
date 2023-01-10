@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public class Main {
     static String FigureNames ="WBACDEFGHIJKLMNOPQRSTUVXYZ";
     static Pitch GameField;
+    static int playerCount = 2; //standard 2, max 8;
     static Thread inputHandler = null;
     static ArrayList<Figures> figuresList = new ArrayList<>();
     static int turn = 0;
