@@ -19,26 +19,24 @@ public class Main {
     public static int size = 8; //size of the playing field, standard 8
 
     public static void main(String[] args) {
-        GameField = new Pitch();
-        for (int i = 0; i < playerCount; i++) {
-            figuresList.add(Figures.genFigure());
+        while (true) {
+            GameField = new Pitch();
+            for (int i = 0; i < playerCount; i++) {
+                figuresList.add(Figures.genFigure());
+            }
+            showNameSign();
+            showMenu();
         }
-        showNameSign();
-        showMenu();
     }
     public static void showNameSign() {
-        //MyIO.writeln("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░");
-        MyIO.writeln("░░░░¿░░░░░░░░░░░░░░░░░░░╒█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░w░░░░░░░░░");
-        MyIO.writeln("░,,▄█▄,.░░░░░░░░░░░░░░ ▀███▀ ░░░░░░░░░░░░░░░░░░░░░░░╤▄██▄▄╕░░░░░░");
-        MyIO.writeln("░░░███ ░░░░░░░░░░░░░░░░╜  ▀░░░░░░.▄ ░░░░░▄▄░░░░░░░░░░▐█▀█░░░░░░░░");
-        MyIO.writeln("░░\" ░ `░░░░░░░░░░░░░░░░░░░░░░░░░░░▀█▄░░,█▀ ░░░░░░░░░░ ░░ ░░░░░░░░");
+        MyIO.writeln("░,,▄█▄,.░░░░░░░░░░░░░░╒█░░░░░░░░░░░░░░░░░░░░░░░░░░░░╤▄██▄▄╕░░░░░░");
+        MyIO.writeln("░░░███ ░░░░░░░░░░░░  ▀███▀ ░░░░░.▄ ░░░░░▄▄░░░░░░░░░░░▐█▀█░░░░░░░░");
+        MyIO.writeln("░░\" ░ `░░░░░░░░░░░░░╜  ▀░░░░░░░░░▀█▄░░,█▀ ░░░░░░░░░░ ░░ ░░░░░░░░░");
         MyIO.writeln("░░░░░░░░░░█▄▀▀▀█▄█▀▀▀█░░░▀▀▀▀▀█▌░░░ ██▄█ ░░░▀█▄░,█▀░░░░░░░░░░░░░░");
         MyIO.writeln("░░░░░░░░░░█░░░░██░░░░█▌░░░,▄▄░█▌░░░░▄██▄░░░░░ ███ ░░░░░░░╒░░░░░░░");
         MyIO.writeln("░░░░░░░░░▐█░░░░██░░░░█░░█▀  ░░█▌░░▄█▀  ██ ░░░▄█▀█▄░░░░╒▄▄██▄╤░░░░");
-        MyIO.writeln("░░░░░,░░░▐█░░░░█▌░░░░█░░▀█▄▄▄░█▌,██ ░░░░▀█▄▄█▀░░ █▌░░░░░█▀█▌░░░░░");
-        MyIO.writeln("░░-▄▄█▄▄▄░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ░░░░░");
-        MyIO.writeln("░░░░███▄░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░");
-        MyIO.writeln("░░░░ ░░ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░");
+        MyIO.writeln("░░░░░░░░░▐█░░░░█▌░░░░█░░▀█▄▄▄░█▌,██ ░░░░▀█▄▄█▀░░ █▌░░░░░█▀█▌░░░░░");
+
     }
     public static void showMenu() {
         boolean faultyInput;
@@ -153,14 +151,22 @@ public class Main {
     }
     public static void startGame(){
         if(inputHandler!=null)inputHandler.interrupt();
-        inputHandler = new Thread(()->{
             try {
                 final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 String inp_cmd = "";
                 Figures figure = null;
                 printField();
                 figure=figuresList.get(turn%figuresList.size());
-                System.out.println(figure.name+ "'s turn");
+                System.out.print(figure.name+ "'s turn ");
+                if (turn%figuresList.size() == 0) {
+                    //MyIO.writeln("| Use N, O, S, W or NO) ");
+                    MyIO.write("| Use W, D, S, A or WD ");
+                } else {
+                    //MyIO.writeln("| Use N, O, S, W or SW) ");
+                    MyIO.write("| Use W, D, S, A or SA ");
+                }
+                MyIO.writeln("+ enter | Type \"quit\" to exit");
+
                 while ((inp_cmd = br.readLine()) != null){
                     if(inp_cmd.equals(""))continue;
                     int xDelta = 0;
@@ -179,7 +185,7 @@ public class Main {
                         }
                     }
                     try {
-                        if(inp_cmd.equalsIgnoreCase("Exit")){
+                        if(inp_cmd.equalsIgnoreCase("quit")){
                             System.exit(2);
                             break;
                         }
@@ -208,9 +214,6 @@ public class Main {
             }catch (Exception e){
                 e.printStackTrace();
             }
-        },"async inp listener");
-        inputHandler.start();
-
     }
     public static int clamp(int cValue, int min, int max) {
         return Math.max(min, Math.min(max, cValue));
