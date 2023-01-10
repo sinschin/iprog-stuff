@@ -5,8 +5,8 @@ import java.text.DecimalFormat;
 import java.util.Objects;
 
 /**
- * @author Tim Sommer, Thomas Erbes
- * @version 3, 3.1.2023
+ * @author  Alex Riedel, Thomas Erbes, Tim Sommer
+ * @version 3, 10.1.2023
  **/
 @SuppressWarnings("unused")
 class Fraction extends Number implements Printable {
