@@ -21,8 +21,21 @@ public class Main {
         for (int i = 0; i < playerCount; i++) {
             figuresList.add(Figures.genFigure());
         }
+        showNameSign();
+        showMenu();
         startGame();
     }
+    public static void showNameSign() {
+        //TODO Add ASCII ART
+        //Welcome Text
+    }
+    public static void showMenu() {
+        //TODO Menu
+        //List with Options
+        //Input
+        //Get the Options
+    }
+
 
     //Shows the playing field
     //TODO an option to show W/B and empty fields (currently the would be shown as 0/1).
