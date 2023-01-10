@@ -206,6 +206,14 @@ public class Main {
                         for (int i = 0; i < players.size(); i++) {
                             System.out.println(players.size()-i+". "+players.get(i).name+" "+players.get(i).points.floatValue());
                         }
+                        if (turn%figuresList.size() == 0) {
+                            //MyIO.writeln("| Use N, O, S, W or NO) ");
+                            MyIO.write("Use W, D, S, A or WD ");
+                        } else {
+                            //MyIO.writeln("| Use N, O, S, W or SW) ");
+                            MyIO.write("Use W, D, S, A or SA ");
+                        }
+                        MyIO.writeln("+ enter | Type \"quit\" to exit");
                         System.out.println(figure.name+ "'s turn with "+figure.points.floatValue());
                     }catch (InvalidMoveException ex){
                         System.out.println(ex.getMessage());
@@ -217,6 +225,32 @@ public class Main {
     }
     public static int clamp(int cValue, int min, int max) {
         return Math.max(min, Math.min(max, cValue));
+    }
+    public static void announceWinner(Figures winner, ArrayList<Figures> players) {
+        MyIO.writeln("We have a Winner!");
+        System.out.println(winner.name + " wins with " + winner.points + " Congratulations!");
+        for (Figures figure : players) {
+            if (figure.name != winner.name) {
+                System.out.println(figure.name + " has " + figure.points);
+            }
+        }
+        MyIO.writeln("");
+        boolean faultyInput;
+        do {
+            faultyInput = false;
+            switch (MyIO.promptAndRead("Enter \"a\" to play again, \"m\" for the menu or \"q\" to quit: ").toLowerCase()) {
+                case "a":
+                    startGame();
+                    break;
+                case "m": break;
+                case "q":
+                    MyIO.write("Program will be terminated");
+                    System.exit(2);
+                default:
+                    MyIO.writeln("Unknown input");
+                    faultyInput = true;
+            }
+        } while (faultyInput);
     }
     //gives the player the points that the field he is standing on holds
     //public static void gainPoints(Figures figure) {
