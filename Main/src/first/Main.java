@@ -46,7 +46,7 @@ public class Main {
         MyIO.writeln("What do you want to do?");
         MyIO.writeln("1 - Quick start");
         MyIO.writeln("2 - Show rules");
-        MyIO.writeln("3 - Show highscore");
+        //MyIO.writeln("3 - Show highscore");
         MyIO.writeln("Q - Exit program");
         do {
             faultyInput = false;
@@ -59,8 +59,7 @@ public class Main {
                     MyIO.writeln("\nHere are the rules:");
                     showRules();
                     break;
-                case "3": /*showHighscore();*/
-                    break;
+                //case "3": /*showHighscore();*/ break;
                 case "q":
                     MyIO.write("Program will be terminated");
                     for (int i = 0; i < 3; i++) {
