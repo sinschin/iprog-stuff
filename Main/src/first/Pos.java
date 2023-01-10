@@ -1,7 +1,10 @@
 package first;
 
 import java.util.Objects;
-
+/**
+ * @author  Alex Riedel, Thomas Erbes, Tim Sommer
+ * @version 1, 10.1.2023
+ **/
 public class Pos {
     private int x;
     private int y;

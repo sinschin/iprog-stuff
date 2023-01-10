@@ -4,7 +4,10 @@ import java.math.BigInteger;
 import java.util.Objects;
 import java.util.Random;
 import static first.Main.size;
-
+/**
+ * @author  Alex Riedel, Thomas Erbes, Tim Sommer
+ * @version 1, 10.1.2023
+ **/
 public class Figures implements Printable{
 
     public String name;

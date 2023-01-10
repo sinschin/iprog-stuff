@@ -2,12 +2,11 @@ package first;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-/**
-* @version 4, 13.12.2022
-* @author Tim Sommer, Thomas Erbes
-**/
 import java.util.Scanner;
-
+/**
+ * @author  Alex Riedel, Thomas Erbes, Tim Sommer
+ * @version 1, 10.1.2023
+ **/
 public class MyIO {
     
     private MyIO() {}

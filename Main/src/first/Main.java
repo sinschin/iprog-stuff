@@ -8,7 +8,10 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-
+/**
+ * @author  Alex Riedel, Thomas Erbes, Tim Sommer
+ * @version 1, 10.1.2023
+ **/
 public class Main {
     static String FigureNames ="WBACDEFGHIJKLMNOPQRSTUVXYZ";
     static Pitch GameField;
