@@ -38,9 +38,6 @@ public class Main {
         MyIO.writeln("░░-▄▄█▄▄▄░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ░░░░░");
         MyIO.writeln("░░░░███▄░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░");
         MyIO.writeln("░░░░ ░░ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░");
-
-        //TODO Add ASCII ART
-        //Welcome Text
     }
     public static void showMenu() {
         //TODO Menu
@@ -183,7 +180,7 @@ public class Main {
             }catch (Exception e){
                 e.printStackTrace();
             }
-        },"async inp listner");
+        },"async inp listener");
         inputHandler.start();
 
     }
@@ -191,7 +188,7 @@ public class Main {
         return Math.max(min, Math.min(max, cValue));
     }
     //gives the player the points that the field he is standing on holds
-    public static void gainPoints(Figures figure) {
-        figure.points.addition(GameField.getFieldPoints(figure.x, figure.y));
-    }
+    //public static void gainPoints(Figures figure) {
+    //    figure.points.addition(GameField.getFieldPoints(figure.x, figure.y));
+    //}
 }
