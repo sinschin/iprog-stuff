@@ -131,7 +131,7 @@ public class Main {
                         if(xDelta==0&&yDelta==0)throw new InvalidMoveException("Unknown input");
                         figure.move(clamp(xDelta,-1,1),clamp(yDelta,-1,1));
                         if(nothingLeft()){
-                            System.out.println("and its over");
+                            System.out.println("all fields are empty!"); //TODO Ende besser beschreiben, der mit mehr Punkten gewinnt
                             ArrayList<Figures> players =figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
                             for (int i = 0; i < players.size(); i++) {
                                 System.out.println(players.size()-i+". "+players.get(i).name+" "+players.get(i).points.floatValue());
