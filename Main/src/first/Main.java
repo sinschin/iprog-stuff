@@ -53,7 +53,7 @@ public class Main {
                     MyIO.writeln("Here we go!");
                     startGame();
                     break;
-                case "2": /*showRules();*/
+                case "2": showRules();
                     break;
                 case "3": /*showHighscore();*/
                     break;
@@ -71,6 +71,14 @@ public class Main {
                     faultyInput = true;
             }
         } while (faultyInput);
+    }
+
+    public static void showRules() {
+        final String movementRules = "Movement Type the keys n, w, s, o (=North, West, South, East).";
+        final String movement2Rules = "Special Movement Type the keys no and sw (=Northeast, Southwest)";
+        final String victoryRules = "Victory Collect the most points of the fractions. The game is over when the last available square has been accessed.";
+
+        System.out.println("\n" + movementRules + "\n" + movement2Rules + "\n" + victoryRules);
     }
 
     //Shows the playing field
