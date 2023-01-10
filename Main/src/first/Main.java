@@ -1,10 +1,12 @@
 package first;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -23,7 +25,6 @@ public class Main {
         }
         showNameSign();
         showMenu();
-        startGame();
     }
     public static void showNameSign() {
         //MyIO.writeln("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░");
@@ -40,12 +41,39 @@ public class Main {
         MyIO.writeln("░░░░ ░░ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░");
     }
     public static void showMenu() {
+        boolean faultyInput;
         //TODO Menu
-        //List with Options
-        //Input
-        //Get the Options
+        MyIO.writeln("What do you want to do?");
+        MyIO.writeln("1 - Quick start");
+        MyIO.writeln("2 - Show rules");
+        MyIO.writeln("3 - Show highscore");
+        MyIO.writeln("Q - Exit program");
+        do {
+            faultyInput = false;
+            switch (MyIO.promptAndRead("Your selection: ").toLowerCase()) {
+                case "1":
+                    MyIO.writeln("Here we go!");
+                    startGame();
+                    break;
+                case "2": /*showRules();*/
+                    break;
+                case "3": /*showHighscore();*/
+                    break;
+                case "q":
+                    MyIO.write("Program will be terminated");
+                    for (int i = 0; i < 3; i++) {
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch(Exception ignored) {}
+                        MyIO.write(".");
+                    }
+                    System.exit(2);
+                default:
+                    MyIO.writeln("Unknown input");
+                    faultyInput = true;
+            }
+        } while (faultyInput);
     }
-
 
     //Shows the playing field
     //TODO an option to show W/B and empty fields (currently the would be shown as 0/1).
