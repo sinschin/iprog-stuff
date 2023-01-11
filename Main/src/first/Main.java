@@ -32,12 +32,12 @@ public class Main {
 
     }
     public static void showMenu() {
-        MyIO.writeln("What do you want to do?");
-        MyIO.writeln("1 - Quick start");
-        MyIO.writeln("2 - Show rules");
-//        MyIO.writeln("3 - Show highscore"); //kinda useless since it always wins at 53 points
-        MyIO.writeln("Q - Exit program");
         while (true){
+            MyIO.writeln("What do you want to do?");
+            MyIO.writeln("1 - Quick start");
+            MyIO.writeln("2 - Show rules");
+//        MyIO.writeln("3 - Show highscore"); //kinda useless since it always wins at 53 points
+            MyIO.writeln("Q - Exit program");
             switch (MyIO.promptAndRead("Your selection: ").toLowerCase()) {
                 case "1" -> {
                     MyIO.writeln("Here we go!");
