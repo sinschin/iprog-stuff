@@ -237,10 +237,10 @@ public class Main {
         ArrayList<Figures> sortedFigureList = figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
         if(winner==null)winner=sortedFigureList.get(sortedFigureList.size()-1);
         Figures finalWinner = winner;
-        System.out.println(finalWinner.name + " wins with " + finalWinner.points.floatValue() + " Congratulations!");
+        System.out.println(finalWinner.name + " wins with " + finalWinner.points.floatValue() + " points Congratulations!");
         sortedFigureList.forEach(x->{
             if (!x.equals(finalWinner)) {
-                System.out.println(x.name + " has " + x.points.floatValue());
+                System.out.println(x.name + " has " + x.points.floatValue()+" points");
             }
         });
         MyIO.writeln("");
