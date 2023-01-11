@@ -34,23 +34,18 @@ public class Main {
 
     }
     public static void showMenu() {
-        boolean faultyInput;
         MyIO.writeln("What do you want to do?");
         MyIO.writeln("1 - Quick start");
         MyIO.writeln("2 - Show rules");
 //        MyIO.writeln("3 - Show highscore"); //kinda useless since it always wins at 53 points
         MyIO.writeln("Q - Exit program");
-        do {
-            faultyInput = false;
+        while (true){
             switch (MyIO.promptAndRead("Your selection: ").toLowerCase()) {
                 case "1" -> {
                     MyIO.writeln("Here we go!");
                     startGame();
                 }
-                case "2" -> {
-                    MyIO.writeln("\nHere are the rules:");
-                    showRules();
-                }
+                case "2" -> showRules();
 //                case "3": /*showHighscore();*/
 //                    break;
                 case "q" -> {
@@ -66,14 +61,16 @@ public class Main {
                 }
                 default -> {
                     MyIO.writeln("Unknown input");
-                    faultyInput = true;
+                    continue;
                 }
             }
-        } while (faultyInput);
+            return;
+        }
     }
 
     //
     public static void showRules() {
+        MyIO.writeln("\nHere are the rules:");
         final String movementRules = "Movement: \nType the keys w, a, s, d (=North, East, South, West), to move in the direction.";
         final String movement2Rules = "You can move diagonal with the keys no or sw (=Northeast, Southwest).";
         final String victoryRules = "Victory:\nCollect the most points of the fractions. \nThe game is over when the last available square has been accessed,\nor a player has more than 53 points.";
@@ -159,6 +156,7 @@ public class Main {
     public static void startGame(){
         try {
             GameField = new Pitch();
+            figuresList.clear();
             for (int i = 0; i < playerCount; i++) {
                 figuresList.add(Figures.genFigure());
             }
@@ -169,19 +167,16 @@ public class Main {
             turn=0;
             figure=figuresList.get(0);
             System.out.print(figure.name+ "'s turn ");
-            if (figure.name.equals("W")) {
-                //MyIO.writeln("| Use N, O, S, W or NO) ");
-                MyIO.write("| Use W, D, S, A or WD ");
-            } else {
-                //MyIO.writeln("| Use N, O, S, W or SW) ");
-                MyIO.write("| Use W, D, S, A or SA ");
+            switch (figure.name) {
+                case "W" -> MyIO.write("| Use W, D, S, A or WD ");
+                case "B" -> MyIO.write("| Use W, D, S, A or SA ");
+                default -> MyIO.write("| Use W, D, S, A"); // rest of the figures don't have a special move
             }
             MyIO.writeln("+ enter | Type \"quit\" to exit");
 
             while ((inp_cmd = br.readLine()) != null){
                 if(inp_cmd.equals(""))continue;
-                int xDelta = 0;
-                int yDelta = 0;
+                int xDelta = 0,yDelta = 0;
                 for (char c : inp_cmd.toCharArray()) {
                     switch (c){
                         default:continue; //in case of invalid input
@@ -207,21 +202,20 @@ public class Main {
                         announceWinner(null); // for performance reasons since its kinda useless to go through the list again (we do that again in this function)
                         break;
                     }
-                    ArrayList<Figures> players =figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
                     if (figure.points.floatValue() > 53.0f) {
                         announceWinner(figure);
+                        break;
                     } //check if points are reached
                     printField();
                     figure=figuresList.get(turn%figuresList.size());
+                    ArrayList<Figures> players =figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
                     for (int i = 0; i < players.size(); i++) { //points list
                         System.out.println(players.size()-i+". "+players.get(i).name+" "+players.get(i).points.floatValue());
                     }
-                    if (turn%figuresList.size() == 0) {
-                        //MyIO.writeln("| Use N, O, S, W or NO) ");
-                        MyIO.write("Use W, D, S, A or WD ");
-                    } else {
-                        //MyIO.writeln("| Use N, O, S, W or SW) ");
-                        MyIO.write("Use W, D, S, A or SA ");
+                    switch (figure.name) {
+                        case "W" -> MyIO.write("| Use W, D, S, A or WD ");
+                        case "B" -> MyIO.write("| Use W, D, S, A or SA ");
+                        default -> MyIO.write("| Use W, D, S, A"); // rest of the figures don't have a special move
                     }
                     MyIO.writeln("+ enter | Type \"quit\" to exit");
                     System.out.println(figure.name+ "'s turn with "+figure.points.floatValue());
@@ -254,7 +248,7 @@ public class Main {
                 case "a" -> startGame();
                 case "m" -> showMenu();
                 case "q" -> {
-                    MyIO.write("Program will be terminated");
+                    MyIO.writeln("Program will be terminated");
                     System.exit(2);
                 }
                 default -> {
