@@ -1,7 +1,6 @@
 package first;
 
 import java.math.BigInteger;
-import java.text.DecimalFormat;
 import java.util.Objects;
 
 /**
@@ -86,12 +85,12 @@ class Fraction extends Number implements Printable {
     public Fraction addition(Fraction otherFraction) {
         BigInteger abNumerator, abDenominator, abGCD;
         BigInteger den = denominator;
-        BigInteger otherden = otherFraction.denominator;
+        BigInteger otherDen = otherFraction.denominator;
 
         //bring to a mutual common denominator
-        abNumerator= numerator.multiply(otherden).add(otherFraction.numerator.multiply(den));
+        abNumerator= numerator.multiply(otherDen).add(otherFraction.numerator.multiply(den));
 //        abNumerator = numerator * otherFraction.denominator + otherFraction.numerator * denominator;
-        abDenominator=den.multiply(otherden);
+        abDenominator=den.multiply(otherDen);
 //        abDenominator = denominator * otherFraction.denominator;
 
         //shorten

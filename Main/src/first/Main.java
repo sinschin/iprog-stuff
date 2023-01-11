@@ -1,33 +1,25 @@
 package first;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
 import java.util.stream.Collectors;
 /**
  * @author  Alex Riedel, Thomas Erbes, Tim Sommer
  * @version 1, 10.1.2023
  **/
 public class Main {
-    static String FigureNames ="WBACDEFGHIJKLMNOPQRSTUVXYZ";
-    static Pitch GameField;
-    static int playerCount = 2; //standard 2, max 8;
+    public static final int size = 8; //size of the playing field, standard 8
+    static final String FigureNames ="WBACDEFGHIJKLMNOPQRSTUVXYZ";
+    static final int playerCount = 2; //standard 2, max 24; //but not recommended since then you could box in a player and the game would be stuck since that player has to move but cant move
 //    static Thread inputHandler = null; //cus the other persons didn't understand multithreading
-    static ArrayList<Figures> figuresList = new ArrayList<>();
+    static final ArrayList<Figures> figuresList = new ArrayList<>();
+    static Pitch GameField;
     static int turn = 0;
-    public static int size = 8; //size of the playing field, standard 8
 
     public static void main(String[] args) {
         showNameSign();
         while (true) {
-            GameField = new Pitch();
-            for (int i = 0; i < playerCount; i++) {
-                figuresList.add(Figures.genFigure());
-            }
             showMenu();
         }
     }
@@ -154,10 +146,9 @@ public class Main {
     private static Boolean nothingLeft(){
         for (int i = 0; i < Pitch.field.length; i++) {
             Printable[] allX = Pitch.field[i];
-            for (int i1 = 0; i1 < allX.length; i1++) {
-                Printable allX1 = allX[i1];
-                if(allX1.isFraction()){
-                    if(((Fraction)allX1).isValid()){
+            for (Printable allX1 : allX) {
+                if (allX1.isFraction()) {
+                    if (((Fraction) allX1).isValid()) {
                         return false;
                     }
                 }
@@ -167,13 +158,16 @@ public class Main {
     }
     public static void startGame(){
         try {
-
+            GameField = new Pitch();
+            for (int i = 0; i < playerCount; i++) {
+                figuresList.add(Figures.genFigure());
+            }
             final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            String inp_cmd = "";
-            Figures figure = null;
+            String inp_cmd;
+            Figures figure;
             printField();
             turn=0;
-            figure=figuresList.get(turn%figuresList.size());
+            figure=figuresList.get(0);
             System.out.print(figure.name+ "'s turn ");
             if (figure.name.equals("W")) {
                 //MyIO.writeln("| Use N, O, S, W or NO) ");
@@ -210,13 +204,12 @@ public class Main {
                     figure.move(clamp(xDelta,-1,1),clamp(yDelta,-1,1));
                     if(nothingLeft()){
                         System.out.println("all fields are empty!");
-                        ArrayList<Figures> players =figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
-                        announceWinner(figuresList.get(1).points.floatValue() > figuresList.get(2).points.floatValue() ? figuresList.get(1): figuresList.get(2), players);
+                        announceWinner(null); // for performance reasons since its kinda useless to go through the list again (we do that again in this function)
                         break;
                     }
                     ArrayList<Figures> players =figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
                     if (figure.points.floatValue() > 53.0f) {
-                        announceWinner(figure, players);
+                        announceWinner(figure);
                     } //check if points are reached
                     printField();
                     figure=figuresList.get(turn%figuresList.size());
@@ -244,33 +237,33 @@ public class Main {
     public static int clamp(int cValue, int min, int max) {
         return Math.max(min, Math.min(max, cValue));
     }
-    public static void announceWinner(Figures winner, ArrayList<Figures> players) {
+    public static void announceWinner(Figures winner) {
         MyIO.writeln("We have a Winner!");
-        System.out.println(winner.name + " wins with " + winner.points.floatValue() + " Congratulations!");
-        for (Figures figure : players) {
-            if (figure.name != winner.name) {
-                System.out.println(figure.name + " has " + figure.points.floatValue());
+        ArrayList<Figures> sortedFigureList = figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
+        if(winner==null)winner=sortedFigureList.get(sortedFigureList.size()-1);
+        Figures finalWinner = winner;
+        System.out.println(finalWinner.name + " wins with " + finalWinner.points.floatValue() + " Congratulations!");
+        sortedFigureList.forEach(x->{
+            if (!x.equals(finalWinner)) {
+                System.out.println(x.name + " has " + x.points.floatValue());
             }
-        }
+        });
         MyIO.writeln("");
-        boolean faultyInput;
-        do {
-            faultyInput = false;
+        while (true){
             switch (MyIO.promptAndRead("Enter \"a\" to play again, \"m\" for the menu or \"q\" to quit: ").toLowerCase()) {
-                case "a":
-                    startGame();
-                    break;
-                case "m":
-                    showMenu();
-                    break;
-                case "q":
+                case "a" -> startGame();
+                case "m" -> showMenu();
+                case "q" -> {
                     MyIO.write("Program will be terminated");
                     System.exit(2);
-                default:
+                }
+                default -> {
                     MyIO.writeln("Unknown input");
-                    faultyInput = true;
+                    continue;
+                }
             }
-        } while (faultyInput);
+            return;
+        }
     }
     //gives the player the points that the field he is standing on holds
     //public static void gainPoints(Figures figure) {

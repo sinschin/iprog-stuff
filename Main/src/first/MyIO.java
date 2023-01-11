@@ -11,7 +11,7 @@ public class MyIO {
     
     private MyIO() {}
 
-    static private Scanner sc = new Scanner(System.in);
+    static private final Scanner sc = new Scanner(System.in);
 
     //Einlesen von unterschiedlichen Datentypen
     //String

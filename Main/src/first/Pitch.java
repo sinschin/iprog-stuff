@@ -28,7 +28,7 @@ public class Pitch {
     }
     //creates suitable fractions according to the assignment
     private static Fraction createFraction() {
-        int numerator, denominator, gcdivisor;
+        int numerator, denominator, gcDivisor;
         Random random = new Random();
         //create random number between 10 and 999
         numerator = 10 + random.nextInt(989);
@@ -39,9 +39,9 @@ public class Pitch {
 
 
         //truncate fraction
-        gcdivisor = gcd(numerator, denominator);
-        numerator = numerator / gcdivisor;
-        denominator = denominator / gcdivisor;
+        gcDivisor = gcd(numerator, denominator);
+        numerator = numerator / gcDivisor;
+        denominator = denominator / gcDivisor;
 
         //check that numbers are at least in double digits
         if (numerator < 10 || denominator < 10) {
