@@ -43,7 +43,10 @@ public class Main {
                     MyIO.writeln("Here we go!");
                     startGame();
                 }
-                case "2" -> showRules();
+                case "2" -> {
+                    showRules();
+                    continue;
+                }
 //                case "3": /*showHighscore();*/
 //                    break;
                 case "q" -> {
