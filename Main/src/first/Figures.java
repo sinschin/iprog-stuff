@@ -45,7 +45,7 @@ public class Figures implements Printable{
                 return;
             }
         }
-        Pitch.field[x][y]=new Fraction(0,1);
+        Pitch.field[x][y]=new Fraction(0,1); //just made so the move methode adds 0 points
         move(0,0);//just to refresh the board position
     }
     //Move
@@ -54,7 +54,7 @@ public class Figures implements Printable{
         {
             throw new InvalidMoveException("Field exceeded... try again: ");
         }
-        Boolean specialMove = Math.abs(x1)+Math.abs(y1) == 2;
+        boolean specialMove = Math.abs(x1)+Math.abs(y1) == 2;
         if((specialMove && !((name.equals("W") && x1==1&&y1==-1) || (name.equals("B") && x1==-1&&y1==1)))){
             throw new InvalidMoveException("Unable to do this special move try again: ");
         }

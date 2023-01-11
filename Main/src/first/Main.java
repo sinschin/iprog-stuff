@@ -19,9 +19,7 @@ public class Main {
 
     public static void main(String[] args) {
         showNameSign();
-        while (true) {
-            showMenu();
-        }
+        showMenu();
     }
     public static void showNameSign() {
         MyIO.writeln("░,,▄█▄,.░░░░░░░░░░░░░░╒█░░░░░░░░░░░░░░░░░░░░░░░░░░░░╤▄██▄▄╕░░░░░░");
@@ -199,11 +197,11 @@ public class Main {
                     figure.move(clamp(xDelta,-1,1),clamp(yDelta,-1,1));
                     if(nothingLeft()){
                         System.out.println("all fields are empty!");
-                        announceWinner(null); // for performance reasons since its kinda useless to go through the list again (we do that again in this function)
+                        announceWinnerAndEndGame(null); // for performance reasons since its kinda useless to go through the list again (we do that again in this function)
                         break;
                     }
                     if (figure.points.floatValue() > 53.0f) {
-                        announceWinner(figure);
+                        announceWinnerAndEndGame(figure);
                         break;
                     } //check if points are reached
                     printField();
@@ -231,7 +229,7 @@ public class Main {
     public static int clamp(int cValue, int min, int max) {
         return Math.max(min, Math.min(max, cValue));
     }
-    public static void announceWinner(Figures winner) {
+    public static void announceWinnerAndEndGame(Figures winner) {
         MyIO.writeln("We have a Winner!");
         ArrayList<Figures> sortedFigureList = figuresList.stream().sorted(Comparator.comparingDouble(x->x.points.doubleValue())).collect(Collectors.toCollection(ArrayList::new));
         if(winner==null)winner=sortedFigureList.get(sortedFigureList.size()-1);
