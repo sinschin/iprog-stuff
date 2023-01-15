@@ -73,7 +73,7 @@ public class Main {
     public static void showRules() {
         MyIO.writeln("\nHere are the rules:");
         final String movementRules = "Movement: \nType the keys w, a, s, d (=North, East, South, West), to move in the direction.";
-        final String movement2Rules = "You can move diagonal with the keys no or sw (=Northeast, Southwest).";
+        final String movement2Rules = "You can move diagonal with the keys wa or sd (=Northeast, Southwest).";
         final String victoryRules = "Victory:\nCollect the most points of the fractions. \nThe game is over when the last available square has been accessed,\nor a player has more than 53 points.";
 
         System.out.println(movementRules + "\n" + movement2Rules + "\n\n" + victoryRules);
