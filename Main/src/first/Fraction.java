@@ -69,10 +69,20 @@ class Fraction extends Number implements Printable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Fraction fraction = (Fraction) o;
-        return Objects.equals(numerator, fraction.numerator) && Objects.equals(denominator, fraction.denominator);
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Fraction)) {
+            return false;
+        }
+
+        Fraction other = (Fraction) o;
+
+        BigInteger thisNum = numerator.multiply(other.denominator);
+        BigInteger otherNum = other.numerator.multiply(denominator);
+
+        return thisNum.equals(otherNum);
     }
 
     @Override
